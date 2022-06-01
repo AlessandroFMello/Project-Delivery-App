@@ -54,5 +54,8 @@
       "__TESTDESC__": true,
       "__TESTFILE__": true
     }
+  },
+  "dependencies": {
+    "autoprefixer": "10.4.5"
   }
 }
