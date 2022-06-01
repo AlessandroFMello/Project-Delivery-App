@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-} from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import validateUser from '../helpers/validateLogin';
+import { emailInput, passwordInput } from '../components/LoginForm';
+import AppContext from '../context/AppContext';
 
 export default function LoginPage(/* { history } */) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const [visible, setVisible] = useState(false);
-
+  const { visible, setVisible, email, password } = useContext(AppContext);
   function validateLogin() {
     const emailValidationRegex = /\S+@\S+\.\S+/;
     const MIN_PASSWORD = 6;
@@ -39,32 +34,9 @@ export default function LoginPage(/* { history } */) {
     <div className="login-page-container">
       <div className="login-items-container">
         <Form className="login-form" onSubmit={ (e) => onSubmitLogin(e) }>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="email">
-              <Form.Control
-                id="email"
-                onChange={ ({ target }) => setEmail(target.value) }
-                placeholder="Enter e-mail"
-                type="email"
-                value={ email.email }
-                required
-              />
-            </Form.Label>
-          </Form.Group>
+          { emailInput() }
           <div className="input-format">
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="password">
-                <Form.Control
-                  id="password"
-                  type={ !visible ? 'password' : 'text' }
-                  onChange={ ({ target }) => setPassword(target.value) }
-                  placeholder="Enter password"
-                  value={ password.password }
-                  required
-                />
-              </Form.Label>
-            </Form.Group>
-
+            { passwordInput() }
             <button
               type="button"
               onClick={ () => eyePassword() }
