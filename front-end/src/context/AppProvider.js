@@ -3,11 +3,16 @@ import React, { useState } from 'react';
 import AppContext from './AppContext';
 
 function AppProvider({ children }) {
-  const [appState, setAppState] = useState({});
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [visible, setVisible] = useState(false);
   const context = {
-    appState,
-    setAppState,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    visible,
+    setVisible
   };
 
   return (
