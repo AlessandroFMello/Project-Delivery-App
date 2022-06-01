@@ -1,10 +1,15 @@
+const CryptoJS = require('crypto-js');
 const TokenGenerator = require('../tokenGenerator');
 const { User } = require('../../database/models');
-const CryptoJS = require('crypto-js');
-
 
 class LoginService {
-  login = async (email, password) => {
+  constructor() {
+    this.tokenInstance = new TokenGenerator();
+
+    this.login = this.login.bind(this);
+  }
+
+  async login(email, password) {
     const findUser = await User.findOne({ where: { email } });
     
     if (!findUser) return { code: 401, message: 'Incorrect email or password' };
@@ -24,11 +29,10 @@ class LoginService {
       role: findUser.role,
     };
 
-    const tokenInstance = new TokenGenerator();
-    const token = await tokenInstance.createToken(user);
+    const token = await this.tokenInstance.createToken(user);
 
     return { code: 200, user: { user, token } };
-  };
+  }
 }
 
 module.exports = LoginService;
