@@ -10,7 +10,7 @@ class App {
     this.errorHandler();
   }
 
-  startServer(PORT= 3001) {
+  startServer(PORT = 3001) {
     this.app.listen(
       PORT,
       () => console.log(`Server running here 👉 http://localhost:${PORT}`),
@@ -40,12 +40,10 @@ class App {
   getApp() {
     return this.app;
   }
-
     
   errorHandler() {
     this.app.use(errorMiddleware);
   }
-
 }
 
 module.exports = App;

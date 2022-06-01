@@ -15,7 +15,7 @@ export default function LoginPage(/* { history } */) {
   function validateLogin() {
     const emailValidationRegex = /\S+@\S+\.\S+/;
     const MIN_PASSWORD = 6;
-    const validatingEmail = emailValidationRegex.test( email);
+    const validatingEmail = emailValidationRegex.test(email);
     const passwordValidation = password.length >= MIN_PASSWORD;
     const inputValidation = (validatingEmail && passwordValidation);
     return !inputValidation;

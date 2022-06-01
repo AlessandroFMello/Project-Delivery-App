@@ -1,12 +1,12 @@
 export default async function validateUser(data) {
   const URL = 'http://localhost:3001/login';
-  console.log(data)
+  
   const request = await fetch(URL, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
+      'Content-type': 'application/json; charset=UTF-8'
+    },
   });
   const response = await request.json();
   return response;
