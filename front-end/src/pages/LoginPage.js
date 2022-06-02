@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import validateUser from '../helpers/validateLogin';
-import { emailInput, passwordInput } from '../components/LoginForm';
+// import { emailInput, passwordInput } from '../components/LoginForm';
+import EmailInput from '../components/EmailInput';
+import PasswordInput from '../components/PasswordInput';
 import AppContext from '../context/AppContext';
 
 export default function LoginPage(/* { history } */) {
@@ -34,9 +36,9 @@ export default function LoginPage(/* { history } */) {
     <div className="login-page-container">
       <div className="login-items-container">
         <Form className="login-form" onSubmit={ (e) => onSubmitLogin(e) }>
-          { emailInput() }
+          <EmailInput />
           <div className="input-format">
-            { passwordInput() }
+            <PasswordInput />
             <button
               type="button"
               onClick={ () => eyePassword() }
