@@ -38,13 +38,13 @@ export default function LoginPage(/* { history } */) {
   return (
     <div className="login-page-container">
       <div className="login-items-container">
-        <Form className="login-form" onSubmit={(e) => onSubmitLogin(e)}>
+        <Form className="login-form" onSubmit={ (e) => onSubmitLogin(e) }>
           <EmailInput />
           <div className="input-format">
             <PasswordInput />
             <button
               type="button"
-              onClick={() => eyePassword()}
+              onClick={ () => eyePassword() }
               className="button-visible"
             >
               {
@@ -58,7 +58,7 @@ export default function LoginPage(/* { history } */) {
             data-testid="common_login__button-login"
             variant="success"
             type="submit"
-            disabled={validateLogin()}
+            disabled={ validateLogin() }
           >
             LOGIN
           </Button>
@@ -66,7 +66,7 @@ export default function LoginPage(/* { history } */) {
             data-testid="common_login__button-register"
             variant="success"
             type="button"
-            onClick={() => console.log('register')}
+            onClick={ () => console.log('register') }
           >
             Ainda não tenho conta
           </Button>

@@ -9,9 +9,9 @@ export default function PasswordInput() {
       <Form.Label htmlFor="password">
         <Form.Control
           id="password"
-          data-testid='common_login__input-password'
+          data-testid="common_login__input-password"
           type={ !visible ? 'password' : 'text' }
-          onChange={({ target }) => setPassword(target.value)}
+          onChange={ ({ target }) => setPassword(target.value) }
           placeholder="Enter password"
           value={ password }
           required
