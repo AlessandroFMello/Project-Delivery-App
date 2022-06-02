@@ -12,7 +12,7 @@ function AppProvider({ children }) {
     password,
     setPassword,
     visible,
-    setVisible
+    setVisible,
   };
 
   return (
