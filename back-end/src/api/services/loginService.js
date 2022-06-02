@@ -12,14 +12,14 @@ class LoginService {
   async login(email, password) {
     const findUser = await User.findOne({ where: { email } });
     
-    if (!findUser) return { code: 401, message: 'Incorrect email or password' };
+    if (!findUser) return { code: 404, message: 'Incorrect email or password' };
     
     const encodedPassword = CryptoJS.MD5(password).toString();
 
     const verifyPassword = () => encodedPassword === findUser.password;
 
     if (!verifyPassword()) {
-      return { code: 401, message: 'Incorrect email or password' };
+      return { code: 404, message: 'Incorrect email or password' };
     }
 
     const user = {
