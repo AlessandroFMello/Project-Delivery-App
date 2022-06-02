@@ -1,16 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import validateUser from '../helpers/validateLogin';
-// import { emailInput, passwordInput } from '../components/LoginForm';
 import EmailInput from '../components/EmailInput';
 import PasswordInput from '../components/PasswordInput';
 import AppContext from '../context/AppContext';
 
 export default function LoginPage(/* { history } */) {
+  const [hasToken, setHasToken] = useState();
   const {
     visible, setVisible, email, password,
   } = useContext(AppContext);
+  const navigate = useNavigate();
+
   function validateLogin() {
     const emailValidationRegex = /\S+@\S+\.\S+/;
     const MIN_PASSWORD = 6;
@@ -23,7 +26,11 @@ export default function LoginPage(/* { history } */) {
   async function onSubmitLogin(e) {
     e.preventDefault();
     // faz requisição para o backend
-    await validateUser({ email, password });
+    const user = await validateUser({ email, password });
+    if (user.token) setHasToken(true);
+    else setHasToken(false);
+
+    if (hasToken) navigate('../customer/products', { replace: true });
     // history.push('/goToSomewhere');
   }
 
@@ -71,6 +78,11 @@ export default function LoginPage(/* { history } */) {
             Ainda não tenho conta
           </Button>
         </Form>
+        {
+          hasToken === false
+            ? <p data-testid="common_login__element-invalid-email">Usuário inválido</p>
+            : null
+        }
       </div>
     </div>
   );
