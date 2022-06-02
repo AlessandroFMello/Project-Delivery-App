@@ -32,6 +32,7 @@ export default function LoginPage(/* { history } */) {
       setVisible(false);
     }
   }
+
   return (
     <div className="login-page-container">
       <div className="login-items-container">
@@ -52,11 +53,20 @@ export default function LoginPage(/* { history } */) {
             </button>
           </div>
           <Button
+            data-testid="common_login__button-login"
             variant="success"
             type="submit"
             disabled={ validateLogin() }
           >
-            Entrar
+            LOGIN
+          </Button>
+          <Button
+            data-testid="common_login__button-register"
+            variant="success"
+            type="button"
+            onClick={ () => console.log('register') }
+          >
+            Ainda não tenho conta
           </Button>
         </Form>
       </div>

@@ -9,6 +9,7 @@ export default function EmailInput() {
       <Form.Label htmlFor="email">
         <Form.Control
           id="email"
+          data-testid='common_login__input-email'
           onChange={ ({ target }) => setEmail(target.value) }
           placeholder="Enter e-mail"
           type="email"
