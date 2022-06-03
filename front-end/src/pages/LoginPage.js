@@ -8,7 +8,7 @@ import PasswordInput from '../components/PasswordInput';
 import AppContext from '../context/AppContext';
 
 export default function LoginPage(/* { history } */) {
-  const [hasToken, setHasToken] = useState();
+  const [invalidUser, setInvalidUser] = useState(false);
   const {
     visible, setVisible, email, password,
   } = useContext(AppContext);
@@ -27,10 +27,13 @@ export default function LoginPage(/* { history } */) {
     e.preventDefault();
     // faz requisição para o backend
     const user = await validateUser({ email, password });
-    if (user.token) setHasToken(true);
-    else setHasToken(false);
-
-    if (hasToken) navigate('../customer/products', { replace: true });
+    if (user.token) {
+      navigate('../customer/products', { replace: true });
+    } else {
+      setInvalidUser(true);
+    }
+    // if (user.token) setHasToken(true);
+    // else setHasToken(false);
     // history.push('/goToSomewhere');
   }
 
@@ -79,7 +82,7 @@ export default function LoginPage(/* { history } */) {
           </Button>
         </Form>
         {
-          hasToken === false
+          invalidUser
             ? <p data-testid="common_login__element-invalid-email">Usuário inválido</p>
             : null
         }
