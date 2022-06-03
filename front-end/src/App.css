@@ -37,20 +37,8 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 200px;
+  height: 250px;
   justify-content: space-around;
-  width: 300px;
-}
-
-.links-container {
-  align-items: center;
-  background-color: rgba(219, 218, 218, 0.726);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  height: 75px;
-  justify-content: space-around;
-  margin-top: 50px;
   width: 300px;
 }
 
@@ -62,5 +50,44 @@
 }
 
 .login-form input {
+  text-align: center;
+}
+
+.login-register-btn {
+  margin-top: 20px;
+}
+
+.register-page-container {
+  align-items: center;
+  background-image: url('./images/drink-background.jpg');
+  background-position-y: -170px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.register-items-container {
+  align-items: center;
+  background-color: rgba(219, 218, 218, 0.726);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: space-around;
+  width: 300px;
+}
+
+.register-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.register-form input {
   text-align: center;
 }
