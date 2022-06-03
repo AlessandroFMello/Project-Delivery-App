@@ -76,7 +76,7 @@ export default function LoginPage(/* { history } */) {
             data-testid="common_login__button-register"
             variant="success"
             type="button"
-            onClick={ () => console.log('register') }
+            onClick={ () => navigate('../register', { replace: false }) }
           >
             Ainda não tenho conta
           </Button>
