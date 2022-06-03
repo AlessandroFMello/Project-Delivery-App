@@ -73,6 +73,7 @@ export default function LoginPage(/* { history } */) {
             LOGIN
           </Button>
           <Button
+            className="login-register-btn"
             data-testid="common_login__button-register"
             variant="success"
             type="button"
