@@ -12,5 +12,6 @@ router.post('/', userMiddleware, userController.create);
 
 router.put('/:id', userMiddleware, userController.update);
 
+router.delete('/:id', userController.delete);
 
 module.exports = router;
