@@ -5,7 +5,7 @@ import EmailInput from '../components/register/EmailInput';
 import PasswordInput from '../components/register/PasswordInput';
 import NameInput from '../components/register/NameInput';
 import AppContext from '../context/AppContext';
-import createUser from '../helpers/createUser';
+import createUser from '../servers/createUser';
 
 export default function RegisterPage() {
   const {
