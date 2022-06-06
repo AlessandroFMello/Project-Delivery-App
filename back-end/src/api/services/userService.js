@@ -12,6 +12,7 @@ class UserService {
     this.getById = this.getById.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   async getAll() {
@@ -72,6 +73,17 @@ class UserService {
     return { code: 200, user };
   }
 
+  async delete(id) {
+    const findUser = await this.userModel.findOne({ where: { id } });
+
+    if (!findUser) return { code: 404, message: this.NOT_FOUND };
+    
+    const user = await this.userModel.destroy({ where: { id } });
+
+    if (!user) return { code: 401, message: 'User not deleted' };
+
+    return { code: 200 };
+  }
 }
 
 module.exports = UserService;
