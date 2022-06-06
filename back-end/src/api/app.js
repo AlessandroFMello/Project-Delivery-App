@@ -1,6 +1,7 @@
 const express = require('express');
 const errorMiddleware = require('./middlewares/errorHandler');
 const loginRouter = require('./routes/loginRouter');
+const userRouter = require('./routes/userRouter');
 
 class App {
   constructor() {
@@ -35,11 +36,12 @@ class App {
 
   routes() {
     this.app.use('/login', loginRouter);
+    this.app.use('/user', userRouter);
   }
 
-  getApp() {
-    return this.app;
-  }
+  // getApp() {
+  //   return this.app;
+  // }
     
   errorHandler() {
     this.app.use(errorMiddleware);
