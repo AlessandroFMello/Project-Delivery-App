@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-
+import ProdutosPage from './pages/ProdutosPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -15,6 +15,10 @@ function App() {
       <Route
         path="/login"
         element={ <LoginPage /> }
+      />
+      <Route
+        path="/customer/products"
+        element={ <ProdutosPage /> }
       />
     </Routes>
   );

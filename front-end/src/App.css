@@ -64,3 +64,19 @@
 .login-form input {
   text-align: center;
 }
+
+.navBar {
+  align-items: center;
+  background: mediumseagreen;
+  display: flex;
+  font-family: system-ui , -apple-system , Helvetica , Arial , sans-serif;
+  height: 8vh;
+  justify-content: space-around;
+}
+
+.navBar-a {
+  color: white;
+  margin-left: 52px;
+  text-decoration: none;
+  transition: 0.3s;
+}
