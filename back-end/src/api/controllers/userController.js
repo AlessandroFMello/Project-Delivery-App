@@ -7,6 +7,7 @@ class UserController {
     this.getAll = this.getAll.bind(this);
     this.getById = this.getById.bind(this);
     this.create = this.create.bind(this);
+    this.update = this.update.bind(this);
   }
 
   async getAll(_req, res, _next) {
@@ -33,6 +34,18 @@ class UserController {
 
   async create(req, res, _next) {
     const { code, user, message } = await this.userService.create(req.body);
+
+    if (!user) {
+      return res.status(code).json({ message });
+    }
+
+    return res.status(code).json(user);
+  }
+
+  async update(req, res, _next) {
+    const { id } = req.params;
+
+    const { code, user, message } = await this.userService.update(id, req.body);
 
     if (!user) {
       return res.status(code).json({ message });
