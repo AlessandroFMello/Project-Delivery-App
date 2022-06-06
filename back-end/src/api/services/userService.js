@@ -1,3 +1,4 @@
+const { Op } = require('sequelize'); 
 const { User } = require('../../database/models');
 
 class UserService {
@@ -8,6 +9,7 @@ class UserService {
 
     this.getAll = this.getAll.bind(this);
     this.getById = this.getById.bind(this);
+    this.create = this.create.bind(this);
   }
 
   async getAll() {
@@ -22,6 +24,29 @@ class UserService {
     if (!user) return { code: 404, message: this.NOT_FOUND };
 
     return { code: 200, user };
+  }
+
+  async create(data) {
+    const findUser = await this.userModel.findOne({ 
+      where: {
+        [Op.or]: [{ name: data.name }, { email: data.email }],
+      },
+    });
+
+    if (findUser) return { code: 409, message: 'User already exists' };
+
+    const newUser = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      role: 'customer',
+    };
+
+    const user = await this.userModel.create(newUser);
+
+    if (!user) return { code: 400, message: 'User not created' };
+
+    return { code: 201, user: user.dataValues };
   }
 
 }
