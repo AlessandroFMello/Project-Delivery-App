@@ -1,3 +1,4 @@
+const CryptoJS = require('crypto-js');
 const { Op } = require('sequelize'); 
 const { User } = require('../../database/models');
 
@@ -10,6 +11,7 @@ class UserService {
     this.getAll = this.getAll.bind(this);
     this.getById = this.getById.bind(this);
     this.create = this.create.bind(this);
+    this.update = this.update.bind(this);
   }
 
   async getAll() {
@@ -47,6 +49,27 @@ class UserService {
     if (!user) return { code: 400, message: 'User not created' };
 
     return { code: 201, user: user.dataValues };
+  }
+
+  async update(id, data) {
+    const findUser = await this.userModel.findOne({ where: { id } });
+
+    if (!findUser) return { code: 404, message: this.NOT_FOUND };
+    
+    const password = CryptoJS.MD5(data.newPassword).toString();
+
+    const updatedUser = {
+      name: data.name,
+      email: data.email,
+      password,
+      role: data.role,
+    };
+
+    const user = await this.userModel.update(updatedUser, { where: { id } });
+    
+    if (!user) return { code: 401, message: 'User not updated' };
+
+    return { code: 200, user };
   }
 
 }
