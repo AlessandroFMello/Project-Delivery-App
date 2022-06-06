@@ -7,6 +7,8 @@ function AppProvider({ children }) {
   const [password, setPassword] = useState('');
   const [visible, setVisible] = useState(false);
   const [name, setName] = useState('');
+  const [token, setToken] = useState('');
+
   const context = {
     email,
     setEmail,
@@ -16,6 +18,8 @@ function AppProvider({ children }) {
     setVisible,
     name,
     setName,
+    token,
+    setToken,
   };
 
   return (
