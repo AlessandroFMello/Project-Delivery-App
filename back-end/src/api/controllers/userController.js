@@ -8,6 +8,7 @@ class UserController {
     this.getById = this.getById.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   async getAll(_req, res, _next) {
@@ -54,6 +55,17 @@ class UserController {
     return res.status(code).json(user);
   }
 
+  async delete(req, res, _next) {
+    const { id } = req.params;
+
+    const { code, message } = await this.userService.delete(id);
+
+    if (message) {
+      return res.status(code).json({ message });
+    }
+
+    return res.status(code).end();
+  }
 }
 
 module.exports = UserController;
