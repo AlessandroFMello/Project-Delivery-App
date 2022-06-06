@@ -10,5 +10,7 @@ router.get('/:id', userController.getById);
 
 router.post('/', userMiddleware, userController.create);
 
+router.put('/:id', userMiddleware, userController.update);
+
 
 module.exports = router;
