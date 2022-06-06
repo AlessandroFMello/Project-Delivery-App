@@ -13,13 +13,13 @@ class LoginController {
   async login(req, res, _next) {
     const { email, password } = req.body;
 
-    const { code, user, message } = await this.loginService.login(email, password);
+    const { code, token, message } = await this.loginService.login(email, password);
 
-    if (!user) {
+    if (!token) {
       return res.status(code).json({ message });
     }
 
-    return res.status(code).json(user);
+    return res.status(code).json(token);
   }
 
   async validation(req, res, _next) {
