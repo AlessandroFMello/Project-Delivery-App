@@ -25,9 +25,9 @@ export default function LoginPage(/* { history } */) {
 
   async function onSubmitLogin(e) {
     e.preventDefault();
-    const user = await validateUser({ email, password });
-    if (user.token) {
-      setToken(user.token);
+    const token = await validateUser({ email, password });
+    if (token) {
+      setToken(token);
       setEmail('');
       setPassword('');
       navigate('../customer/products', { replace: true });
