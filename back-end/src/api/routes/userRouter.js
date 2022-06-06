@@ -10,7 +10,7 @@ router.get('/:id', userController.getById);
 
 router.post('/', userMiddleware, userController.create);
 
-router.put('/:id', userMiddleware, userController.update);
+router.patch('/:id', userMiddleware, userController.update);
 
 router.delete('/:id', userController.delete);
 
