@@ -31,7 +31,7 @@ class LoginController {
 
     const decodedUser = await this.tokenGenerator.decodeToken(authorization);
 
-    return res.status(200).json(decodedUser.role);
+    return res.status(200).json(decodedUser);
   }
 }
 
