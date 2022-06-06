@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
 
-export default function ProdutosPage() {
+export default function ProductsPage() {
   return (
     <div>
       <Navbar className="navBar">

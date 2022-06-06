@@ -2,7 +2,9 @@ import './App.css';
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-import ProdutosPage from './pages/ProdutosPage';
+import ProductsPage from './pages/ProductsPage';
+import RegisterPage from './pages/RegisterPage';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -17,8 +19,12 @@ function App() {
         element={ <LoginPage /> }
       />
       <Route
+        path="/register"
+        element={ <RegisterPage /> }
+      />
+      <Route
         path="/customer/products"
-        element={ <ProdutosPage /> }
+        element={ <ProductsPage /> }
       />
     </Routes>
   );
