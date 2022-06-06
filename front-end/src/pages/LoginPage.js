@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import validateUser from '../helpers/validateLogin';
+import validateUser from '../servers/validateLogin';
 import EmailInput from '../components/EmailInput';
 import PasswordInput from '../components/PasswordInput';
 import AppContext from '../context/AppContext';
@@ -10,7 +10,7 @@ import AppContext from '../context/AppContext';
 export default function LoginPage(/* { history } */) {
   const [invalidUser, setInvalidUser] = useState(false);
   const {
-    visible, setVisible, email, password,
+    visible, setVisible, email, setEmail, password, setPassword, setToken,
   } = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -25,16 +25,15 @@ export default function LoginPage(/* { history } */) {
 
   async function onSubmitLogin(e) {
     e.preventDefault();
-    // faz requisição para o backend
     const user = await validateUser({ email, password });
     if (user.token) {
+      setToken(user.token);
+      setEmail('');
+      setPassword('');
       navigate('../customer/products', { replace: true });
     } else {
       setInvalidUser(true);
     }
-    // if (user.token) setHasToken(true);
-    // else setHasToken(false);
-    // history.push('/goToSomewhere');
   }
 
   function eyePassword() {
