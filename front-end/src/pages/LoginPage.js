@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -14,6 +14,10 @@ export default function LoginPage(/* { history } */) {
   } = useContext(AppContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   function validateLogin() {
     const emailValidationRegex = /\S+@\S+\.\S+/;
     const MIN_PASSWORD = 6;
@@ -26,10 +30,12 @@ export default function LoginPage(/* { history } */) {
   async function onSubmitLogin(e) {
     e.preventDefault();
     const token = await getTokenData({ email, password });
-    if (token) {
+    if (typeof token === 'string') {
       setToken(token);
       setEmail('');
       setPassword('');
+      // Trocando para customer/orders para testar a página
+      localStorage.setItem('token', token);
       navigate('../customer/products', { replace: true });
     } else {
       setInvalidUser(true);

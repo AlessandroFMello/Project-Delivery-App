@@ -8,6 +8,7 @@ function AppProvider({ children }) {
   const [visible, setVisible] = useState(false);
   const [name, setName] = useState('');
   const [token, setToken] = useState('');
+  const [orders, setOrders] = useState([]);
 
   const context = {
     email,
@@ -20,6 +21,8 @@ function AppProvider({ children }) {
     setName,
     token,
     setToken,
+    orders,
+    setOrders,
   };
 
   return (

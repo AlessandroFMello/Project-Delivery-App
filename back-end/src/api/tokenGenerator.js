@@ -8,9 +8,9 @@ class TokenGenerator {
     this.decodeToken = this.decodeToken.bind(this);
   }
 
-  async createToken({ id, username, email, role }) {
+  async createToken({ id, name, email, role }) {
     return this.jwt.sign(
-    { id, username, email, role },
+    { id, name, email, role },
     await readFile('jwt.evaluation.key', 'utf8'),
     { expiresIn: '1d', algorithm: 'HS256' },
     );
