@@ -96,7 +96,7 @@
   align-items: center;
   background: mediumseagreen;
   display: flex;
-  font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  font-family: system-ui , -apple-system , Helvetica , Arial , sans-serif;
   height: 8vh;
   justify-content: space-around;
 }
