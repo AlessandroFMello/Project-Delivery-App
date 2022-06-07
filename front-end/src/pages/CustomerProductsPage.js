@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import getTokenData from '../services/getTokenData';
 
 export default function ProductsPage() {
   const { token } = useContext(AppContext);
   const [username, setUsername] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const profile = async () => {
@@ -41,14 +42,16 @@ export default function ProductsPage() {
         <a className="navBar-a" href="/register">
           {username}
         </a>
-        <Link
+        <a
           className="navBar-a"
-          to="/login"
-          onClick={ () => { localStorage.clear(); } }
-          replace
+          onClick={ () => {
+            localStorage.clear();
+            navigate('../login', { replace: true });
+          } }
+          href="/login"
         >
           Sair
-        </Link>
+        </a>
       </Navbar>
     </div>
   );
