@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 import AppContext from '../context/AppContext';
-import getData from '../services/getData';
+import getTokenData from '../services/getTokenData';
 
 export default function ProductsPage() {
   const { token } = useContext(AppContext);
@@ -11,7 +11,7 @@ export default function ProductsPage() {
   useEffect(() => {
     const profile = async () => {
       try {
-        const { name } = await getData(token);
+        const { name } = await getTokenData(token);
         localStorage.setItem('user', name);
         setUsername(name);
       } catch (error) {
