@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import validateUser from '../services/validateLogin';
+import getTokenData from '../services/getTokenData';
 import EmailInput from '../components/EmailInput';
 import PasswordInput from '../components/PasswordInput';
 import AppContext from '../context/AppContext';
@@ -13,6 +13,10 @@ export default function LoginPage(/* { history } */) {
     visible, setVisible, email, setEmail, password, setPassword, setToken,
   } = useContext(AppContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   function validateLogin() {
     const emailValidationRegex = /\S+@\S+\.\S+/;
@@ -25,11 +29,13 @@ export default function LoginPage(/* { history } */) {
 
   async function onSubmitLogin(e) {
     e.preventDefault();
-    const token = await validateUser({ email, password });
-    if (token) {
+    const token = await getTokenData({ email, password });
+    if (typeof token === 'string') {
       setToken(token);
       setEmail('');
       setPassword('');
+      // Trocando para customer/orders para testar a página
+      localStorage.setItem('token', token);
       navigate('../customer/products', { replace: true });
     } else {
       setInvalidUser(true);

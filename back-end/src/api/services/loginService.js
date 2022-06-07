@@ -24,7 +24,7 @@ class LoginService {
 
     const user = {
       id: findUser.id,
-      username: findUser.username,
+      name: findUser.name,
       email: findUser.email,
       role: findUser.role,
     };
