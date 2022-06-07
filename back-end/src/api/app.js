@@ -2,7 +2,7 @@ const express = require('express');
 const errorMiddleware = require('./middlewares/errorHandler');
 const loginRouter = require('./routes/loginRouter');
 const userRouter = require('./routes/userRouter');
-// const customerRouter = require('./routes/customerRouter');
+const productsRouter = require('./routes/productsRouter');
 
 class App {
   constructor() {
@@ -34,7 +34,7 @@ class App {
   routes() {
     this.app.use('/login', loginRouter);
     this.app.use('/user', userRouter);
-    // this.app.use('/customer', customerRouter);
+    this.app.use('/products', productsRouter);
   }
 
   getApp() {
