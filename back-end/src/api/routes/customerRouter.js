@@ -1,10 +1,10 @@
-const router = require('express').Router();
-const CustomerController = require('../controllers/customerController');
-const userMiddleware = require('../middlewares/userMiddleware');
+// const router = require('express').Router();
+// const CustomerController = require('../controllers/customerController');
+// const userMiddleware = require('../middlewares/userMiddleware');
 
-const customerController = new CustomerController();
+// const customerController = new CustomerController();
 
-router.get('/orders', customerController.getSale);
+// router.get('/orders', customerController.getSale);
 
 // router.get('/:id', customerController.getById);
 
@@ -14,4 +14,4 @@ router.get('/orders', customerController.getSale);
 
 // router.delete('/:id', customerController.delete);
 
-module.exports = router;
+// module.exports = router;
