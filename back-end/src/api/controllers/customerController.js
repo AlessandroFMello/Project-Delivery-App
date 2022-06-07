@@ -1,5 +1,5 @@
-const CustomerOrderService = require("../services/customerOrderService");
-const TokenGenerator = require("../tokenGenerator");
+const CustomerOrderService = require('../services/customerOrderService');
+const TokenGenerator = require('../tokenGenerator');
 
 class CustomerController {
   constructor() {
@@ -9,17 +9,17 @@ class CustomerController {
     this.getSale = this.getSale.bind(this);
   }
 
-  async getSale() {
-    const response = await this.tokenGenerator.decodeToken(token);
+  // async getSale() {
+  //   const response = await this.tokenGenerator.decodeToken(token);
 
-    console.log(response);
+  //   console.log(response);
 
-    const sales = await this.customerOrderService.getSale(response.data.id);
+  //   const sales = await this.customerOrderService.getSale(response.data.id);
 
-    console.log(sales);
+  //   console.log(sales);
     
-    return res.status(200).json(sales);
-  }
+  //   return res.status(200).json(sales);
+  // }
 }
 
 module.exports = CustomerController;
