@@ -5,7 +5,7 @@ import EmailInput from '../components/register/EmailInput';
 import PasswordInput from '../components/register/PasswordInput';
 import NameInput from '../components/register/NameInput';
 import AppContext from '../context/AppContext';
-import createUser from '../servers/createUser';
+import createUser from '../services/apiCreate';
 
 export default function RegisterPage() {
   const {
@@ -28,7 +28,7 @@ export default function RegisterPage() {
   async function onSubmitUser(e) {
     e.preventDefault();
 
-    const newUser = await createUser({ name, email, password });
+    const newUser = await createUser({ name, email, password }, 'user');
     if (newUser.message) {
       setInvalidRegister(true);
     } else {
