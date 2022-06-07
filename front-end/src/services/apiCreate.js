@@ -1,7 +1,7 @@
 const CryptoJS = require('crypto-js');
 
-export default async function createUser(data, patch) {
-  const URL = `http://localhost:3001/${patch}`;
+export default async function createUser(data, path) {
+  const URL = `http://localhost:3001/${path}`;
 
   const md5Password = CryptoJS.MD5(data.password).toString();
 

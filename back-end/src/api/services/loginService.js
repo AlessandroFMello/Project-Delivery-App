@@ -31,7 +31,7 @@ class LoginService {
 
     const token = await this.tokenInstance.createToken(user);
 
-    return { code: 200, user: { user, token } };
+    return { code: 200, token };
   }
 }
 
