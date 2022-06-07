@@ -1,5 +1,5 @@
-export default async function getAllUsers() {
-  const URL = 'http://localhost:3001/user';
+export default async function getAll(path) {
+  const URL = `http://localhost:3001/${path}`;
 
   const request = await fetch(URL, {
     method: 'GET',

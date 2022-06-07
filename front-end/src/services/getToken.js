@@ -1,4 +1,4 @@
-export default async function validateUser(data) {
+export default async function getToken(data) {
   const URL = 'http://localhost:3001/login';
 
   const request = await fetch(URL, {
