@@ -8,11 +8,11 @@ class CustomerOrderService {
   }
 
   async getSale(userId) {
-    const findSale = await Sale.findAll({ where: { userId } });
+    // const findSale = await Sale.findAll({ where: { userId } });
     
-    console.log('🚀 ~ file: customerOrderService.js ~ line 12 ~ CustomerOrderService ~ getSale ~ findSale', findSale);
+    // console.log('🚀 ~ file: customerOrderService.js ~ line 12 ~ CustomerOrderService ~ getSale ~ findSale', findSale);
 
-    return findSale;
+    // return findSale;
   }
 }
 

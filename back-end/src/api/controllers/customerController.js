@@ -1,5 +1,5 @@
-const CustomerOrderService = require("../services/customerOrderService");
-const TokenGenerator = require("../tokenGenerator");
+const CustomerOrderService = require('../services/customerOrderService');
+const TokenGenerator = require('../tokenGenerator');
 
 class CustomerController {
   constructor() {
