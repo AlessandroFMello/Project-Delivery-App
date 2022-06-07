@@ -2,7 +2,7 @@ const express = require('express');
 const errorMiddleware = require('./middlewares/errorHandler');
 const loginRouter = require('./routes/loginRouter');
 const userRouter = require('./routes/userRouter');
-const customerRouter = require('./routes/customerRouter');
+// const customerRouter = require('./routes/customerRouter');
 
 class App {
   constructor() {
@@ -31,19 +31,15 @@ class App {
     this.app.use(express.json());
   }
 
-  // addRouter(router: Router) {
-  //   this.app.use(router);
-  // }
-
   routes() {
     this.app.use('/login', loginRouter);
     this.app.use('/user', userRouter);
-    this.app.use('/customer', customerRouter);
+    // this.app.use('/customer', customerRouter);
   }
 
-  // getApp() {
-  //   return this.app;
-  // }
+  getApp() {
+    return this.app;
+  }
     
   errorHandler() {
     this.app.use(errorMiddleware);
