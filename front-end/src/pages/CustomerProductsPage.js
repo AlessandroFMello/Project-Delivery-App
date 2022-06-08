@@ -3,10 +3,12 @@ import { Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import getTokenData from '../services/getTokenData';
+import apiGetAll from '../services/apiGetAll';
 
 export default function ProductsPage() {
   const { token } = useContext(AppContext);
   const [username, setUsername] = useState('');
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +29,18 @@ export default function ProductsPage() {
   useEffect(() => {
     const userStorage = localStorage.getItem('user');
     if (userStorage) setUsername(userStorage);
+  }, []);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const allProducts = await apiGetAll('products');
+        setProducts(allProducts);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProducts();
   }, []);
 
   return (
@@ -53,6 +67,26 @@ export default function ProductsPage() {
           Sair
         </a>
       </Navbar>
+      {console.log(products)}
+      {products.map((product) => (
+        <div key={ product.id }>
+          <p
+            data-testid={ `customer_products__element-card-title-${product.id}` }
+          >
+            { product.name }
+          </p>
+          <p
+            data-testid={ `customer_products__element-card-price-${product.id}` }
+          >
+            { product.price.replace('.', ',') }
+          </p>
+          <img
+            data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+            src={ product.url_image }
+            alt={ product.name }
+          />
+        </div>
+      ))}
     </div>
   );
 }
