@@ -41,7 +41,8 @@
     "moment": "2.29.1",
     "mysql2": "2.3.3",
     "pm2": "5.2.0",
-    "puppeteer": "13.5.1",
+    "puppeteer": "^13.5.1",
+    "puppeteer-core": "^14.3.0",
     "sequelize": "6.17.0",
     "sequelize-cli": "6.4.1"
   },
