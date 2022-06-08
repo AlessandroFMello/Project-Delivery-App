@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
@@ -33,7 +33,7 @@ export default function ProductsPage() {
           Meus Pedidos
         </a>
         <a
-          data-testid="data-testid='customer_products__element-navbar-user-full-name'"
+          data-testid="customer_products__element-navbar-user-full-name"
           className="navBar-a"
           href="/register"
         >
@@ -51,7 +51,6 @@ export default function ProductsPage() {
           Sair
         </a>
       </Navbar>
-      {console.log(products)}
       {products.map((product) => (
         <div key={ product.id }>
           <p
