@@ -9,6 +9,8 @@ export default function ProductsPage() {
   const { token } = useContext(AppContext);
   const [username, setUsername] = useState('');
   const [products, setProducts] = useState([]);
+  const [quantity, setQuantity] = useState([0,0,0,0,0,0,0,0,0,0,0])
+  const [cost, setCost] = useState(0)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +25,6 @@ export default function ProductsPage() {
     };
     const userStorage = localStorage.getItem('user');
     if (userStorage === null || userStorage === 'undefined') profile();
-    else console.log(typeof userStorage);
   }, [token]);
 
   useEffect(() => {
@@ -42,6 +43,29 @@ export default function ProductsPage() {
     };
     getProducts();
   }, []);
+
+   function handleChange(event, index){
+    const arrayQuantity = [... quantity]
+    
+
+   }
+
+  function handleIncrement (index, price){
+    const arrayQuantity = [... quantity]
+     arrayQuantity[index] += 1
+    setQuantity(arrayQuantity)
+    setCost((initialCost) => initialCost + +price);
+  }
+
+  function handleDecrement (index, price){
+
+    const arrayQuantity = [... quantity]
+    if(arrayQuantity[index] > 0){
+      arrayQuantity[index] -= 1
+      setQuantity(arrayQuantity)
+      setCost((initialCost) => initialCost - +price);
+    }
+  }
 
   return (
     <div>
@@ -74,8 +98,7 @@ export default function ProductsPage() {
           Sair
         </a>
       </Navbar>
-      {console.log(products)}
-      {products.map((product) => (
+      {products.map((product, index) => (
         <div key={ product.id }>
           <p
             data-testid={ `customer_products__element-card-title-${product.id}` }
@@ -91,9 +114,25 @@ export default function ProductsPage() {
             data-testid={ `customer_products__img-card-bg-image-${product.id}` }
             src={ product.url_image }
             alt={ product.name }
+            width='100px'
           />
+          <button onClick={() => handleDecrement(index, product.price)}
+           data-testid={ `customer_products__button-card-rm-item-${product.id}`}
+          >-</button>
+          <input
+          type="text"   
+          /* onInput={"validity.valid||(value='');"} */
+          pattern="/^\d+$/"
+          onChange={(event) => handleChange(event, index)}
+          value={quantity[index]}
+          data-testid= {`customer_products__input-card-quantity-${product.id}`}
+          />
+           <button onClick={() => handleIncrement(index, product.price) }
+          data-testid={ `customer_products__button-card-add-item-${product.id}`}
+          >+</button>
         </div>
       ))}
+      <div>{cost.toFixed(2)}</div>
     </div>
   );
 }
