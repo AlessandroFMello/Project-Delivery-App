@@ -7,10 +7,10 @@ import CustomerProductsPage from '../pages/CustomerProductsPage';
 export default function RandomComponent() {
   return (
     useRoutes([
-      { path:'/', element: <Navigate to="/login" replace /> },
-      { path:"/login", element: <LoginPage replace /> },
-      { path:"/register", element: <RegisterPage /> },
-      { path:"/customer/products", element: <CustomerProductsPage /> },
+      { path: '/', element: <Navigate to="/login" replace /> },
+      { path: '/login', element: <LoginPage replace /> },
+      { path: '/register', element: <RegisterPage /> },
+      { path: '/customer/products', element: <CustomerProductsPage /> },
     ])
   );
 }
