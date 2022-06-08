@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const errorMiddleware = require('./middlewares/errorHandler');
 const loginRouter = require('./routes/loginRouter');
 const userRouter = require('./routes/userRouter');
@@ -35,6 +36,7 @@ class App {
     this.app.use('/login', loginRouter);
     this.app.use('/user', userRouter);
     this.app.use('/products', productsRouter);
+    this.app.use('/images', express.static(path.join(__dirname, '../images')));
   }
 
   getApp() {
