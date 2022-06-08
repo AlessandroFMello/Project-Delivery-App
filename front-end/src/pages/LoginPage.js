@@ -1,22 +1,22 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
+// import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import getToken from '../services/getToken';
 import EmailInput from '../components/EmailInput';
 import PasswordInput from '../components/PasswordInput';
 import AppContext from '../context/AppContext';
+import getToken from '../services/getToken';
+import getTokenData from '../services/getTokenData';
 
 export default function LoginPage(/* { history } */) {
   const [invalidUser, setInvalidUser] = useState(false);
   const {
-    visible, setVisible, email, setEmail, password, setPassword, setToken,
+    visible, setVisible, email, setEmail, setName, setRole,
+    password, setPassword, setToken,
   } = useContext(AppContext);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
+  const navigate = useNavigate();
 
   function validateLogin() {
     const emailValidationRegex = /\S+@\S+\.\S+/;
@@ -27,26 +27,35 @@ export default function LoginPage(/* { history } */) {
     return !inputValidation;
   }
 
+  async function setProfileData(token) {
+    const { name, role } = await getTokenData(token);
+
+    setName(name);
+    setRole(role);
+
+    const userStorage = localStorage.getItem('user');
+
+    if (userStorage === null) {
+      try {
+        localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
+      } catch (error) {
+        console.log(error);
+      }
+    } else console.log(typeof userStorage);
+  }
+
   async function onSubmitLogin(e) {
     e.preventDefault();
     const token = await getToken({ email, password });
+
     if (typeof token === 'string') {
       setToken(token);
       setEmail('');
       setPassword('');
-      // Trocando para customer/orders para testar a página
-      localStorage.setItem('token', token);
+      await setProfileData(token);
       navigate('../customer/products', { replace: true });
     } else {
       setInvalidUser(true);
-    }
-  }
-
-  function eyePassword() {
-    if (!visible) {
-      setVisible(true);
-    } else {
-      setVisible(false);
     }
   }
 
@@ -59,7 +68,7 @@ export default function LoginPage(/* { history } */) {
             <PasswordInput />
             <button
               type="button"
-              onClick={ () => eyePassword() }
+              onClick={ () => setVisible(!visible) }
               className="button-visible"
             >
               {
