@@ -7,6 +7,7 @@ function AppProvider({ children }) {
   const [password, setPassword] = useState('');
   const [visible, setVisible] = useState(false);
   const [name, setName] = useState('');
+  const [role, setRole] = useState('');
   const [token, setToken] = useState('');
   const [orders, setOrders] = useState([]);
 
@@ -19,6 +20,8 @@ function AppProvider({ children }) {
     setVisible,
     name,
     setName,
+    role,
+    setRole,
     token,
     setToken,
     orders,
