@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
-// import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import EmailInput from '../components/EmailInput';
-import PasswordInput from '../components/PasswordInput';
-import AppContext from '../context/AppContext';
 import getToken from '../services/getToken';
+import EmailInput from '../components/login/EmailInput';
+import PasswordInput from '../components/login/PasswordInput';
+import AppContext from '../context/AppContext';
 import getTokenData from '../services/getTokenData';
 
 export default function LoginPage(/* { history } */) {
