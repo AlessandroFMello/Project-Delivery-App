@@ -122,7 +122,7 @@ export default function ProductsPage() {
             pattern="/^\d+$/"
             onChange={ (event) => handleChange(event, index, product.price) }
             value={ quantity[index] }
-            data-testid={ `customer_products__input-card-quantity-${product.id}` }
+            data-testid={ `customer_products__input-card-quantity--${product.id}` }
           />
           <button
             onClick={ () => handleIncrement(index, product.price) }
@@ -131,9 +131,14 @@ export default function ProductsPage() {
           >
             +
           </button>
+          <button
+            data-testid="customer_products__checkout-bottom-value"
+            type="button"
+          >
+            { cost.toFixed(2).replace('.', ',') }
+          </button>
         </div>
       ))}
-      <div>{cost.toFixed(2)}</div>
     </div>
   );
 }
