@@ -32,18 +32,25 @@ export default function ProductsPage() {
   return (
     <div>
       <Navbar className="navBar">
-        <a className="navBar-a" href="/customer/checkout">
+        <a className="navBar-a" href="/customer/checkout"
+        data-testid='customer_products__element-navbar-link-products'
+        >
           Produtos
         </a>
-        <a className="navBar-a" href="/customer/orders">
+        <a className="navBar-a" href="/customer/orders"
+        data-testid='customer_products__element-navbar-link-orders'
+        >
           {' '}
           Meus Pedidos
         </a>
-        <a className="navBar-a" href="/register">
+        <a className="navBar-a" href="/register"
+        data-testid='customer_products__element-navbar-user-full-name'
+        >
           {username}
         </a>
         <a
           className="navBar-a"
+          data-testid='customer_products__element-navbar-link-logout'
           onClick={ () => {
             localStorage.clear();
             navigate('../login', { replace: true });
