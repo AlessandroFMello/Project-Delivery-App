@@ -10,7 +10,6 @@ export default function ProductsPage() {
   const { name, totalCost } = useContext(AppContext);
   const [disableCartBtn, setDisableCartBtn] = useState(true);
   const navigate = useNavigate();
-  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -25,17 +24,13 @@ export default function ProductsPage() {
   }, []);
 
   useEffect(() => {
-    if (totalCost === 0) {
-      setPrice(0);
+    const min = 0.001;
+    if (totalCost <= min) {
       setDisableCartBtn(true);
     } else {
       setDisableCartBtn(false);
     }
   }, [totalCost]);
-
-  useEffect(() => {
-      setPrice(totalCost);
-    }, [totalCost]);
 
   return (
     <div>
@@ -84,13 +79,13 @@ export default function ProductsPage() {
         type="button"
         data-testid="customer_products__button-cart"
         disabled={ disableCartBtn }
-        onClick={ () => navigate('/customer/checkout') }
+        onClick={ () => { navigate('/customer/checkout'); } }
       >
         Ver Carrinho: R$
         <span
           data-testid="customer_products__checkout-bottom-value"
         >
-          { price.toFixed(2).toString().replace('.', ',') }
+          { totalCost.toFixed(2).toString().replace('.', ',') }
         </span>
       </button>
     </div>

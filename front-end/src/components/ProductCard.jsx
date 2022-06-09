@@ -7,31 +7,37 @@ export default function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(0);
   const [lastValue, setLastValue] = useState(0);
 
+  // useEffect(() => {
+  //   function updateQuantity() {
+  //     const newProduct = {
+  //       id: product.id,
+  //       name: product.name,
+  //       price: product.price,
+  //       quantity: 0,
+  //     };
+  //     cart.push({ ...newProduct });
+  //   }
+  //   if (quantity > 0) {
+  //     updateQuantity();
+  //   }
+  // }, [quantity, cart, setCart, product]);
+
   useEffect(() => {
     const newProduct = {
       id: product.id,
       name: product.name,
       price: product.price,
-      quantity,
+      quantity: 0,
     };
-    cart.push({ ...newProduct });
+    cart.push(newProduct);
+    setCart([...cart]);
   }, []);
-
-  // useEffect(() => {
-  //   const newProduct = {
-  //     id: product.id,
-  //     name: product.name,
-  //     price: product.price,
-  //     quantity,
-  //   };
-  //   setCart([{ ...cart, ...newProduct }]);
-  // }, [quantity, cart, setCart, product]);
 
   useEffect(() => {
     const cartItem = cart.find((c) => c.id === product.id);
     cart[cart.indexOf(cartItem)].quantity = quantity;
-    setCart(cart);
-  }, [quantity, cart, setCart, product]);
+    setCart([...cart]);
+  }, [quantity, product]);
 
   function handleChange({ target }, price) {
     const { value } = target;
@@ -92,7 +98,7 @@ export default function ProductCard({ product }) {
       />
       <button
         onClick={ () => handleIncrement(product.price) }
-        data-testid={ `customer_products__button-card-add-item-${product.id}` }
+        data-testid={ `customer_products__button-card-add-item--${product.id}` }
         type="button"
       >
         +
@@ -105,7 +111,7 @@ ProductCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
     url_image: PropTypes.string.isRequired,
   }).isRequired,
 };
