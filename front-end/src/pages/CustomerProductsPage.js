@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 import apiGetAll from '../services/apiGetAll';
 import AppContext from '../context/AppContext';
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState([]);
-  const [quantity, setQuantity] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  const [cost, setCost] = useState(0);
-  const [lastValue, setLastValue] = useState(0);
-  const { name } = useContext(AppContext);
+  const { name, quantity, setQuantity, products, setProducts,
+    cost, setCost, lastValue, setLastValue } = useContext(AppContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +19,7 @@ export default function ProductsPage() {
       }
     };
     getProducts();
-  }, []);
+  }, [setProducts]);
 
   function handleChange({ target }, index, price) {
     const { value } = target;
@@ -129,14 +126,15 @@ export default function ProductsPage() {
           >
             +
           </button>
-          <button
-            data-testid="customer_products__checkout-bottom-value"
-            type="button"
-          >
-            { cost.toFixed(2).replace('.', ',') }
-          </button>
         </div>
       ))}
+      <button
+        data-testid="customer_products__checkout-bottom-value"
+        type="button"
+        onClick={ () => navigate('../customer/checkout', { replace: false }) }
+      >
+        { cost.toFixed(2).replace('.', ',') }
+      </button>
     </div>
   );
 }

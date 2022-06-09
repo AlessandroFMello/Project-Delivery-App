@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CustomerOrdersPage from './pages/CustomerOrdersPage';
 import CustomerProductsPage from './pages/CustomerProductsPage';
+import CustomerCheckoutPage from './pages/CustomerCheckoutPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -35,6 +36,11 @@ function App() {
         exact
         path="customer/products"
         element={ <CustomerProductsPage /> }
+      />
+      <Route
+        exact
+        path="customer/checkout"
+        element={ <CustomerCheckoutPage /> }
       />
     </Routes>
   );
