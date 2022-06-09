@@ -18,38 +18,42 @@ export default function ProductCard({ product }) {
   }, []);
 
   // useEffect(() => {
-  //   const cartItem = cart.find((c) => c.id === product.id);
-  //   cart[cart.indexOf(cartItem)].quantity = quantity;
-  //   setCart(cart);
-  // }, [quantity]);
+  //   const newProduct = {
+  //     id: product.id,
+  //     name: product.name,
+  //     price: product.price,
+  //     quantity,
+  //   };
+  //   setCart([{ ...cart, ...newProduct }]);
+  // }, [quantity, cart, setCart, product]);
 
-  // useEffect(() => {
-  //   cart.forEach((cartItem) => {
-  //     setTotalCost(totalCost + (cartItem.price * cartItem.quantity));
-  //   });
-  // }, [quantity, cart]);
+  useEffect(() => {
+    const cartItem = cart.find((c) => c.id === product.id);
+    cart[cart.indexOf(cartItem)].quantity = quantity;
+    setCart(cart);
+  }, [quantity, cart, setCart, product]);
 
   function handleChange({ target }, price) {
     const { value } = target;
     const regexAZ = /^\d+$/;
     if (regexAZ.test(value) || Number(value) === 0) {
-      setLastValue(+price * Number(value));
-      setTotalCost((totalCost - lastValue) + +price * Number(value));
       setQuantity(Number(value));
+      setLastValue(+price * Number(value));
+      setTotalCost((totalCost - lastValue) + (+price * Number(value)));
     }
   }
 
   function handleIncrement(price) {
     setQuantity(quantity + 1);
     setLastValue(+price * quantity);
-    setTotalCost((totalCost - lastValue) + +price * quantity);
+    setTotalCost((initialCost) => initialCost + +price);
   }
 
   function handleDecrement(price) {
     if (quantity > 0) {
       setQuantity(quantity - 1);
       setLastValue(+price * quantity);
-      setTotalCost((totalCost - lastValue) - +price * quantity);
+      setTotalCost((initialCost) => initialCost - +price);
     }
   }
 
@@ -88,7 +92,7 @@ export default function ProductCard({ product }) {
       />
       <button
         onClick={ () => handleIncrement(product.price) }
-        data-testid={ `customer_products__button-card-add-item--${product.id}` }
+        data-testid={ `customer_products__button-card-add-item-${product.id}` }
         type="button"
       >
         +

@@ -10,6 +10,7 @@ export default function ProductsPage() {
   const { name, totalCost } = useContext(AppContext);
   const [disableCartBtn, setDisableCartBtn] = useState(true);
   const navigate = useNavigate();
+  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -25,11 +26,16 @@ export default function ProductsPage() {
 
   useEffect(() => {
     if (totalCost === 0) {
+      setPrice(0);
       setDisableCartBtn(true);
     } else {
       setDisableCartBtn(false);
     }
   }, [totalCost]);
+
+  useEffect(() => {
+      setPrice(totalCost);
+    }, [totalCost]);
 
   return (
     <div>
@@ -84,7 +90,7 @@ export default function ProductsPage() {
         <span
           data-testid="customer_products__checkout-bottom-value"
         >
-          { totalCost.toFixed(2).toString().replace('.', ',') }
+          { price.toFixed(2).toString().replace('.', ',') }
         </span>
       </button>
     </div>
