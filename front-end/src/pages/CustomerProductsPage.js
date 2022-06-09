@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useHistory, useNavigate } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import apiGetAll from '../services/apiGetAll';
 import AppContext from '../context/AppContext';
 
@@ -9,7 +9,6 @@ export default function ProductsPage() {
   const [quantity, setQuantity] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [cost, setCost] = useState(0);
   const [lastValue, setLastValue] = useState(0);
-
   const { name } = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -35,7 +34,6 @@ export default function ProductsPage() {
       setCost((initialCost) => (initialCost - lastValue) + +price * Number(value));
       setLastValue(+price * Number(value));
     }
-    // console.log(cost);
   }
 
   function handleIncrement(index, price) {
@@ -84,7 +82,7 @@ export default function ProductsPage() {
           className="navBar-a"
           onClick={ () => {
             localStorage.clear();
-            navigate('../login', { replace: true });
+            navigate('/login');
           } }
           href="/login"
         >
@@ -126,7 +124,7 @@ export default function ProductsPage() {
           />
           <button
             onClick={ () => handleIncrement(index, product.price) }
-            data-testid={ `customer_products__button-card-add-item-${product.id}` }
+            data-testid={ `customer_products__button-card-add-item--${product.id}` }
             type="button"
           >
             +
