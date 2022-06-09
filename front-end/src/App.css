@@ -107,3 +107,17 @@
   text-decoration: none;
   transition: 0.3s;
 }
+
+.item {
+  display: inline-block;
+  margin: 5px;
+  text-align: center;
+  width: 80px;
+}
+
+.item2 {
+  display: inline-block;
+  margin: 5px;
+  text-align: center;
+  width: 80px;
+}

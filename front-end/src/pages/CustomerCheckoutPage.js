@@ -13,21 +13,28 @@ export default function CheckoutPage() {
       ));
     }
   }
+
+  function handleRemove(product) {
+    product
+  }
+
   function quantityOfProdutucs(product, index, amountIndex, amount) {
     if (index === amountIndex) {
-      console.log(product);
-      console.log(product.id);
-      console.log(product.name);
-      console.log(product.price.replace('.', ','));
-      console.log(product.price * amount);
       return (
         <div>
-          <p>{product.id}</p>
-          <p>{product.name}</p>
-          <p>{product.price.replace('.', ',')}</p>
-          <p>{product.price * amount}</p>
-          <p>{amount}</p>
-          <button>Remover</button>
+          <p className="item">{product.id}</p>
+          <p className="item">{product.name}</p>
+          <p className="item">{amount}</p>
+          <p className="item">{product.price.replace('.', ',')}</p>
+          <p className="item">{product.price * amount}</p>
+          <button
+            className="item"
+            type="button"
+            onClick={ () => handleRemove(product) }
+          >
+            Remover
+
+          </button>
         </div>
       );
     }
@@ -35,7 +42,12 @@ export default function CheckoutPage() {
 
   return (
     <div>
-      <div>Quantidade</div>
+      <div className="item2">item</div>
+      <div className="item2">Descrição</div>
+      <div className="item2">Quantidade</div>
+      <div className="item2">Valor Unitário</div>
+      <div className="item2">Sub-total</div>
+      <div className="item2">Remover Item</div>
       {quantity.map((amount, index) => (
         <div>
           <p
@@ -49,3 +61,4 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
