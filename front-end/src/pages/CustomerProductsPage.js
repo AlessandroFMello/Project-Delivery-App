@@ -3,13 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 import apiGetAll from '../services/apiGetAll';
 import AppContext from '../context/AppContext';
+import ProductCard from '../components/ProductCard';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
-  const [quantity, setQuantity] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  const [cost, setCost] = useState(0);
-  const [lastValue, setLastValue] = useState(0);
-  const { name } = useContext(AppContext);
+  const { name, totalCost } = useContext(AppContext);
+  const [disableCartBtn, setDisableCartBtn] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,33 +23,13 @@ export default function ProductsPage() {
     getProducts();
   }, []);
 
-  function handleChange({ target }, index, price) {
-    const { value } = target;
-    const regexAZ = /^\d+$/;
-    if (regexAZ.test(value) || Number(value) === 0) {
-      const arrayQuantity = [...quantity];
-      arrayQuantity[index] = Number(value);
-      setQuantity(arrayQuantity);
-      setCost((initialCost) => (initialCost - lastValue) + +price * Number(value));
-      setLastValue(+price * Number(value));
+  useEffect(() => {
+    if (totalCost === 0) {
+      setDisableCartBtn(true);
+    } else {
+      setDisableCartBtn(false);
     }
-  }
-
-  function handleIncrement(index, price) {
-    const arrayQuantity = [...quantity];
-    arrayQuantity[index] += 1;
-    setQuantity(arrayQuantity);
-    setCost((initialCost) => initialCost + +price);
-  }
-
-  function handleDecrement(index, price) {
-    const arrayQuantity = [...quantity];
-    if (arrayQuantity[index] > 0) {
-      arrayQuantity[index] -= 1;
-      setQuantity(arrayQuantity);
-      setCost((initialCost) => initialCost - +price);
-    }
-  }
+  }, [totalCost]);
 
   return (
     <div>
@@ -89,54 +68,25 @@ export default function ProductsPage() {
           Sair
         </a>
       </Navbar>
-      {products.map((product, index) => (
-        <div key={ product.id }>
-          <p
-            data-testid={ `customer_products__element-card-title-${product.id}` }
-          >
-            { product.name }
-          </p>
-          <p
-            data-testid={ `customer_products__element-card-price-${product.id}` }
-          >
-            { product.price.replace('.', ',') }
-          </p>
-          <img
-            data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-            src={ product.url_image }
-            alt={ product.name }
-            width="100px"
-          />
-          <button
-            onClick={ () => handleDecrement(index, product.price) }
-            data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-            type="button"
-          >
-            -
-          </button>
-          <input
-            type="text"
-            /* onInput={"validity.valid||(value='');"} */
-            pattern="/^\d+$/"
-            onChange={ (event) => handleChange(event, index, product.price) }
-            value={ quantity[index] }
-            data-testid={ `customer_products__input-card-quantity--${product.id}` }
-          />
-          <button
-            onClick={ () => handleIncrement(index, product.price) }
-            data-testid={ `customer_products__button-card-add-item--${product.id}` }
-            type="button"
-          >
-            +
-          </button>
-          <button
-            data-testid="customer_products__checkout-bottom-value"
-            type="button"
-          >
-            { cost.toFixed(2).replace('.', ',') }
-          </button>
-        </div>
+      {products.map((product) => (
+        <ProductCard
+          key={ product.id }
+          product={ product }
+        />
       ))}
+      <button
+        type="button"
+        data-testid="customer_products__button-cart"
+        disabled={ disableCartBtn }
+        onClick={ () => navigate('/customer/checkout') }
+      >
+        Ver Carrinho: R$
+        <span
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          { totalCost.toFixed(2).toString().replace('.', ',') }
+        </span>
+      </button>
     </div>
   );
 }
