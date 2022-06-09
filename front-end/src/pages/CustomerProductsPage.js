@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 import apiGetAll from '../services/apiGetAll';
 import AppContext from '../context/AppContext';
