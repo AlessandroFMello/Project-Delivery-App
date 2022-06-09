@@ -1,54 +1,109 @@
-.App {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
+.button-visible {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  margin-left: 240px;
+  margin-top: 6px;
+  outline: none;
+  overflow: hidden;
+  position: absolute;
+}
+
+.input-format {
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
+  height: 38px;
+  margin-bottom: 20px;
+  width: 274px;
+}
+
+.login-page-container {
+  align-items: center;
+  background-image: url('./images/drink-background.jpg');
+  background-position-y: -170px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
 }
 
-.App > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+.login-items-container {
+  align-items: center;
+  background-color: rgba(219, 218, 218, 0.726);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: space-around;
+  width: 300px;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+.login-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
+.login-form input {
+  text-align: center;
 }
 
-@keyframes clink {
+.login-register-btn {
+  margin-top: 20px;
+}
 
-  0% {
-    transform: rotate(-10deg);
-  }
+.register-page-container {
+  align-items: center;
+  background-image: url('./images/drink-background.jpg');
+  background-position-y: -170px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
 
-  50% {
-    transform: rotate(20deg);
-  }
+.register-items-container {
+  align-items: center;
+  background-color: rgba(219, 218, 218, 0.726);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: space-around;
+  width: 300px;
+}
 
-  100% {
-    transform: rotate(-10deg);
-  }
+.register-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.register-form input {
+  text-align: center;
+}
+
+.navBar {
+  align-items: center;
+  background: mediumseagreen;
+  display: flex;
+  font-family: system-ui , -apple-system , Helvetica , Arial , sans-serif;
+  height: 8vh;
+  justify-content: space-around;
+}
+
+.navBar-a {
+  color: white;
+  margin-left: 52px;
+  text-decoration: none;
+  transition: 0.3s;
 }
