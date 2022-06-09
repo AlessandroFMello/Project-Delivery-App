@@ -7,8 +7,9 @@ import ProductCard from '../components/ProductCard';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
-  const { name, totalCost } = useContext(AppContext);
+  const { name, cart } = useContext(AppContext);
   const [disableCartBtn, setDisableCartBtn] = useState(true);
+  const [totalCost, setTotalCost] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,6 +32,18 @@ export default function ProductsPage() {
       setDisableCartBtn(false);
     }
   }, [totalCost]);
+
+  useEffect(() => {
+    function sumPrices() {
+      let sum = 0;
+      cart.forEach(({ price, quantity }) => {
+        sum += (Number(price) * quantity);
+      });
+
+      setTotalCost(sum.toFixed(2));
+    }
+    sumPrices();
+  }, [cart]);
 
   return (
     <div>
@@ -85,7 +98,7 @@ export default function ProductsPage() {
         <span
           data-testid="customer_products__checkout-bottom-value"
         >
-          { totalCost.toFixed(2).toString().replace('.', ',') }
+          { totalCost.toString().replace('.', ',') }
         </span>
       </button>
     </div>

@@ -11,7 +11,6 @@ function AppProvider({ children }) {
   const [token, setToken] = useState('');
   const [orders, setOrders] = useState([]);
   const [cart, setCart] = useState([]);
-  const [totalCost, setTotalCost] = useState(0);
 
   const context = {
     email,
@@ -30,8 +29,6 @@ function AppProvider({ children }) {
     setOrders,
     cart,
     setCart,
-    totalCost,
-    setTotalCost,
   };
 
   return (
