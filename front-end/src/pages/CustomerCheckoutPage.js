@@ -13,9 +13,13 @@ export default function CheckoutPage() {
       ));
     }
   }
-
-  function handleRemove(product) {
-    product
+  function handleRemove(index, amountIndex) {
+    // for (let i = 0; i < amountIndex.length; i += 1) {
+    //   if (amountIndex[i] === index) {
+    //     amountIndex.splice(i, 1);
+    //     return;
+    //   }
+    // }
   }
 
   function quantityOfProdutucs(product, index, amountIndex, amount) {
@@ -30,7 +34,7 @@ export default function CheckoutPage() {
           <button
             className="item"
             type="button"
-            onClick={ () => handleRemove(product) }
+            onClick={ () => handleRemove(index, amountIndex) }
           >
             Remover
 
@@ -58,7 +62,10 @@ export default function CheckoutPage() {
           </p>
         </div>
       ))}
+      <button
+      type="button"
+      onClick={ () => navigate(`../customer/orders/${id}`, { replace: false }) }
+      >FINALIZAR O PEDIDO</button>
     </div>
   );
 }
-
