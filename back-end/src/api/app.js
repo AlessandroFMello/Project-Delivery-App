@@ -4,6 +4,7 @@ const errorMiddleware = require('./middlewares/errorHandler');
 const loginRouter = require('./routes/loginRouter');
 const userRouter = require('./routes/userRouter');
 const productsRouter = require('./routes/productsRouter');
+const salesRouter = require('./routes/salesRouter');
 
 class App {
   constructor() {
@@ -37,6 +38,7 @@ class App {
     this.app.use('/user', userRouter);
     this.app.use('/products', productsRouter);
     this.app.use('/images', express.static(path.join(__dirname, '../images')));
+    this.app.use('/sales', salesRouter )
   }
 
   getApp() {

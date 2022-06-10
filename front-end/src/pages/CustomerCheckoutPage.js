@@ -1,49 +1,41 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
 export default function CheckoutPage() {
-  const { quantity, products } = useContext(AppContext);
+  const { cart, setCart } = useContext(AppContext);
+  const navigate = useNavigate();
 
-  function quantityTrue(amount, amountIndex) {
-    if (amount > 0) {
-      return products.map((product, index) => (
-        <div>
-          <div>{quantityOfProdutucs(product, index, amountIndex, amount)}</div>
-        </div>
-      ));
-    }
-  }
-  function handleRemove(index, amountIndex) {
-    // for (let i = 0; i < amountIndex.length; i += 1) {
-    //   if (amountIndex[i] === index) {
-    //     amountIndex.splice(i, 1);
-    //     return;
-    //   }
-    // }
+  function handleRemove(index) {
+    const aux = [...cart];
+    aux.splice(index, 1);
+    setCart(aux);
   }
 
-  function quantityOfProdutucs(product, index, amountIndex, amount) {
-    if (index === amountIndex) {
+  function cartCheckout(element, index) {
+    if (element.quantity > 0) {
       return (
         <div>
-          <p className="item">{product.id}</p>
-          <p className="item">{product.name}</p>
-          <p className="item">{amount}</p>
-          <p className="item">{product.price.replace('.', ',')}</p>
-          <p className="item">{product.price * amount}</p>
-          <button
-            className="item"
-            type="button"
-            onClick={ () => handleRemove(index, amountIndex) }
-          >
-            Remover
+          <div>
+            <p className="item">{element.id}</p>
+            <p className="item">{element.name}</p>
+            <p className="item">{element.quantity}</p>
+            <p className="item">{element.price.replace('.', ',')}</p>
+            <p className="item">{element.price * element.quantity}</p>
+            <button
+              className="item"
+              type="button"
+              onClick={ () => handleRemove(index) }
+              data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+            >
+              Remover
 
-          </button>
+            </button>
+          </div>
         </div>
       );
     }
   }
-
   return (
     <div>
       <div className="item2">item</div>
@@ -52,20 +44,22 @@ export default function CheckoutPage() {
       <div className="item2">Valor Unitário</div>
       <div className="item2">Sub-total</div>
       <div className="item2">Remover Item</div>
-      {quantity.map((amount, index) => (
-        <div>
-          <p
-            data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
-          >
-            {quantityTrue(amount, index)}
-
-          </p>
+      {cart.map((element, index) => (
+        <div
+          key={ index }
+        >
+          {cartCheckout(element, index)}
         </div>
       ))}
+
       <button
-      type="button"
-      onClick={ () => navigate(`../customer/orders/${id}`, { replace: false }) }
-      >FINALIZAR O PEDIDO</button>
+        type="button"
+        onClick={ () => navigate(`../customer/orders/${id}`, { replace: false }) }
+      >
+        FINALIZAR O PEDIDO
+
+      </button>
+      <div> Valor Total </div>
     </div>
   );
 }
