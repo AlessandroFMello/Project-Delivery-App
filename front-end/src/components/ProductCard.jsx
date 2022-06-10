@@ -4,8 +4,10 @@ import AppContext from '../context/AppContext';
 
 export default function ProductCard({ product }) {
   const { cart, setCart } = useContext(AppContext);
-  const [quantity, setQuantity] = useState(0);
-  // const [lastValue, setLastValue] = useState(0);
+  const cartInStorage = JSON.parse(localStorage.getItem('cart'));
+  const [quantity, setQuantity] = (
+    useState(!cartInStorage ? 0 : cartInStorage[product.id - 1].quantity)
+  );
 
   useEffect(() => {
     const newProduct = {
@@ -23,7 +25,8 @@ export default function ProductCard({ product }) {
     const cartItem = cart.find((c) => c.id === product.id);
     cart[cart.indexOf(cartItem)].quantity = quantity;
     setCart([...cart]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    localStorage.setItem('cart', JSON.stringify([...cart]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity, product]);
 
   function handleChange({ target }) {
@@ -31,22 +34,16 @@ export default function ProductCard({ product }) {
     const regexAZ = /^\d+$/;
     if (regexAZ.test(value) || Number(value) === 0) {
       setQuantity(Number(value));
-      // setLastValue(+price * Number(value));
-      // setTotalCost((totalCost - lastValue) + (+price * Number(value)));
     }
   }
 
   function handleIncrement() {
     setQuantity(quantity + 1);
-    // setLastValue(+price * quantity);
-    // setTotalCost((initialCost) => initialCost + +price);
   }
 
   function handleDecrement() {
     if (quantity > 0) {
       setQuantity(quantity - 1);
-      // setLastValue(+price * quantity);
-      // setTotalCost((initialCost) => initialCost - +price);
     }
   }
 

@@ -6,7 +6,6 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import AppProvider from './context/AppProvider';
 
-
 ReactDOM.render(
   <AppProvider>
     <BrowserRouter>

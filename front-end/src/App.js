@@ -6,8 +6,6 @@ import RegisterPage from './pages/RegisterPage';
 import CustomerOrdersPage from './pages/CustomerOrdersPage';
 import CustomerProductsPage from './pages/CustomerProductsPage';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 function App() {
   return (
     <Routes>

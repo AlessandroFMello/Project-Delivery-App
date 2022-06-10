@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import getToken from '../services/getToken';
 import EmailInput from '../components/login/EmailInput';
@@ -61,7 +60,7 @@ export default function LoginPage(/* { history } */) {
   return (
     <div className="login-page-container">
       <div className="login-items-container">
-        <Form className="login-form" onSubmit={ (e) => onSubmitLogin(e) }>
+        <form className="login-form" onSubmit={ (e) => onSubmitLogin(e) }>
           <EmailInput />
           <div className="input-format">
             <PasswordInput />
@@ -77,15 +76,15 @@ export default function LoginPage(/* { history } */) {
               }
             </button>
           </div>
-          <Button
+          <button
             data-testid="common_login__button-login"
             variant="success"
             type="submit"
             disabled={ validateLogin() }
           >
             LOGIN
-          </Button>
-          <Button
+          </button>
+          <button
             className="login-register-btn"
             data-testid="common_login__button-register"
             variant="success"
@@ -93,8 +92,8 @@ export default function LoginPage(/* { history } */) {
             onClick={ () => navigate('../register', { replace: false }) }
           >
             Ainda não tenho conta
-          </Button>
-        </Form>
+          </button>
+        </form>
         {
           invalidUser
             ? <p data-testid="common_login__element-invalid-email">Usuário inválido</p>
