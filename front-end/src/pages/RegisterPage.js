@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import EmailInput from '../components/register/EmailInput';
 import PasswordInput from '../components/register/PasswordInput';
@@ -40,19 +39,19 @@ export default function RegisterPage() {
   return (
     <div className="register-page-container">
       <div className="register-items-container">
-        <Form className="register-form" onSubmit={ (e) => onSubmitUser(e) }>
+        <form className="register-form" onSubmit={ (e) => onSubmitUser(e) }>
           <NameInput />
           <EmailInput />
           <PasswordInput />
-          <Button
+          <button
             data-testid="common_register__button-register"
             variant="success"
             type="submit"
             disabled={ validateRegister() }
           >
             Register
-          </Button>
-        </Form>
+          </button>
+        </form>
         {
           invalidRegister
             ? (

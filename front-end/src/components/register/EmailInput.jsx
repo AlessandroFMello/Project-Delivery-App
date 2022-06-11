@@ -1,13 +1,12 @@
-import { Form } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import AppContext from '../../context/AppContext';
 
 export default function EmailInput() {
   const { email, setEmail } = useContext(AppContext);
   return (
-    <Form.Group className="mb-3">
-      <Form.Label htmlFor="email">
-        <Form.Control
+    <div>
+      <label htmlFor="email">
+        <input
           id="email"
           data-testid="common_register__input-email"
           onChange={ ({ target }) => setEmail(target.value) }
@@ -16,7 +15,7 @@ export default function EmailInput() {
           value={ email }
           required
         />
-      </Form.Label>
-    </Form.Group>
+      </label>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Navbar } from 'react-bootstrap';
 import apiGetAll from '../services/apiGetAll';
 import AppContext from '../context/AppContext';
 import ProductCard from '../components/ProductCard';
@@ -10,6 +9,7 @@ export default function ProductsPage() {
   const { name, cart } = useContext(AppContext);
   const [disableCartBtn, setDisableCartBtn] = useState(true);
   const [totalCost, setTotalCost] = useState(0);
+  const nameInStorage = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function ProductsPage() {
 
   return (
     <div>
-      <Navbar className="navBar">
+      <nav className="navBar">
         <a
           className="navBar-a"
           href="/customer/checkout"
@@ -68,7 +68,9 @@ export default function ProductsPage() {
           href="/register"
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          {name}
+          {!nameInStorage
+            ? name
+            : nameInStorage.name}
         </a>
         <a
           data-testid="customer_products__element-navbar-link-logout"
@@ -81,7 +83,7 @@ export default function ProductsPage() {
         >
           Sair
         </a>
-      </Navbar>
+      </nav>
       {products.map((product) => (
         <ProductCard
           key={ product.id }

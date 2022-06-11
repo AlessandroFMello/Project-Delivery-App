@@ -1,13 +1,12 @@
-import { Form } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import AppContext from '../../context/AppContext';
 
 export default function PasswordInput() {
   const { password, setPassword, visible } = useContext(AppContext);
   return (
-    <Form.Group className="mb-3">
-      <Form.Label htmlFor="password">
-        <Form.Control
+    <div>
+      <label htmlFor="password">
+        <input
           id="password"
           data-testid="common_login__input-password"
           type={ !visible ? 'password' : 'text' }
@@ -16,7 +15,7 @@ export default function PasswordInput() {
           value={ password }
           required
         />
-      </Form.Label>
-    </Form.Group>
+      </label>
+    </div>
   );
 }
