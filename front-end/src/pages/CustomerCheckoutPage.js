@@ -5,6 +5,7 @@ import AppContext from '../context/AppContext';
 export default function CheckoutPage() {
   const { cart, setCart } = useContext(AppContext);
   const [disable, setDisable] = useState(true);
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   function handleRemove(index) {
@@ -13,8 +14,29 @@ export default function CheckoutPage() {
     setCart(aux);
   }
 
-  function handleDisable(){
-    
+  let text;
+  let number;
+
+  function handleDisableText(event) {
+    const { value } = event.target;
+    text = value.replace(/[^a-z]/gi, '');
+    setMessage(text);
+    if (message && number) {
+      setDisable(false);
+    }
+    if (!message && number) {
+      setDisable(true);
+    }
+  }
+  function handleDisableNumber(event) {
+    const { value } = event.target;
+    number = value;
+    if (number && message) {
+      setDisable(false);
+    }
+    if (!number && message) {
+      setDisable(true);
+    }
   }
 
   function cartCheckout(element, index) {
@@ -97,11 +119,14 @@ export default function CheckoutPage() {
       <input
         data-testid="customer_checkout__input-address"
         type="text"
+        onChange={ (event) => handleDisableText(event) }
+        value={ message }
       />
       <div> Número </div>
       <input
         data-testid="customer_checkout__input-addressNumber"
         type="number"
+        onChange={ (event) => handleDisableNumber(event) }
       />
       <button
         data-testid="customer_checkout__button-submit-order"
