@@ -115,7 +115,9 @@ export default function CheckoutPage() {
       >
         Total
       </div>
-      <select>
+      <select
+        data-testid={ '"customer_checkout__select-seller' }
+      >
         Pessoa Vendedora Responsável:
         <option>Fulana Peireira</option>
       </select>
