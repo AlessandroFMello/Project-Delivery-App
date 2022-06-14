@@ -2,11 +2,11 @@ const saleSchemas = require('../schemas/saleSchemas');
 
 const productsMiddleware = async (req, res, next) => {
   const {
-    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status,
+    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber,
   } = req.body;
 
   const { error } = saleSchemas.validate({
-    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status,
+    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber,
   });
 
   if (error) {
