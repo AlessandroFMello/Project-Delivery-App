@@ -37,11 +37,13 @@ class SalesService {
       totalPrice: data.totalPrice,
       deliveryAddress: data.deliveryAddress,
       deliveryNumber: data.deliveryNumber,
-      saleDate: data.saleDate,
-      status: data.status,
+      saleDate: new Date(),
+      status: 'pendente',
     };
     const sale = await this.salesModel.create(newSale);
     const token = await this.tokenInstance.createToken(newSale);
+
+    console.log(sale);
 
     if (!sale) return { code: 400, message: 'Sale not created' };
 
