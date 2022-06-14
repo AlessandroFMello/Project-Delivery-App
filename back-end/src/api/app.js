@@ -38,7 +38,7 @@ class App {
     this.app.use('/user', userRouter);
     this.app.use('/products', productsRouter);
     this.app.use('/images', express.static(path.join(__dirname, '../images')));
-    this.app.use('/sales', salesRouter )
+    this.app.use('/sales', salesRouter);
   }
 
   getApp() {
