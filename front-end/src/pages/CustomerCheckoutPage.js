@@ -1,14 +1,19 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
+import getAll from '../services/apiGetAll';
+import create from '../services/apiCreateSemPassword';
 
 export default function CheckoutPage() {
   const { cart } = useContext(AppContext);
   const [disable, setDisable] = useState(true);
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState(0);
+  // const navigate = useNavigate();
   const [newCart, setNewCart] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
+  const [sellers, setSellers] = useState([]);
+  const [seller, setSeller] = useState({});
 
   function handleRemove(index) {
     const aux = [...newCart];
@@ -16,27 +21,23 @@ export default function CheckoutPage() {
     setNewCart(aux);
   }
 
-  let text;
-  let number;
-
   function handleDisableText(event) {
     const { value } = event.target;
-    text = value.replace(/[^a-z]/gi, '');
-    setMessage(text);
-    if (message && number) {
+    setDeliveryAddress(value);
+    if (deliveryAddress && deliveryNumber) {
       setDisable(false);
     }
-    if (!message && number) {
+    if (!deliveryAddress && deliveryNumber) {
       setDisable(true);
     }
   }
   function handleDisableNumber(event) {
     const { value } = event.target;
-    number = value;
-    if (number && message) {
+    setDeliveryNumber(Number(value));
+    if (deliveryNumber && deliveryAddress) {
       setDisable(false);
     }
-    if (!number && message) {
+    if ((!deliveryNumber && deliveryAddress) || deliveryNumber < 1) {
       setDisable(true);
     }
   }
@@ -69,8 +70,6 @@ export default function CheckoutPage() {
   }, [newCart]);
 
   function cartCheckout(element, index) {
-    console.log(index);
-
     return (
       <div>
         <div>
@@ -120,6 +119,44 @@ export default function CheckoutPage() {
       </div>
     );
   }
+
+  async function getUserId() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const getAllUsers = await getAll('user');
+    const [selectedUser] = getAllUsers.filter(({ name }) => name === user.name);
+    return selectedUser.id;
+  }
+
+  async function getAllSellers() {
+    const allUsers = await getAll('user');
+    const allSellers = allUsers.filter(({ role }) => role === 'seller');
+    setSellers(allSellers);
+    setSeller(allSellers[0]);
+  }
+
+  useEffect(() => {
+    getAllSellers();
+  }, []);
+
+  async function onSubmitSale(e) {
+    e.preventDefault();
+    const userId = await getUserId();
+    console.log(e.target);
+    const saleData = {
+      userId,
+      sellerId: seller.id,
+      totalCost,
+      deliveryAddress,
+      deliveryNumber,
+    };
+
+    await create(saleData, 'sales');
+    // const sale = await apiCreate(data, 'sales');
+    // navigate(
+    //   `../customer/orders/${index + 1}`,
+    //   { replace: false },
+    // );
+  }
   return (
     <div>
       {/* <div className="item2">item</div>
@@ -135,40 +172,49 @@ export default function CheckoutPage() {
           {cartCheckout(element, index)}
         </div>
       ))}
-
-      <div
-        data-testid="customer_checkout__element-order-total-price"
+      <form
+        onSubmit={ (e) => onSubmitSale(e) }
       >
-        Total:
-        { totalCost.toFixed(2).replace('.', ',') }
-      </div>
-      <select
-        data-testid="customer_checkout__select-seller"
-      >
-        Pessoa Vendedora Responsável:
-        <option>Fulana Peireira</option>
-      </select>
-      <div> Endereço </div>
-      <input
-        data-testid="customer_checkout__input-address"
-        type="text"
-        onChange={ (event) => handleDisableText(event) }
-        value={ message }
-      />
-      <div> Número </div>
-      <input
-        data-testid="customer_checkout__input-addressNumber"
-        type="number"
-        onChange={ (event) => handleDisableNumber(event) }
-      />
-      <button
-        data-testid="customer_checkout__button-submit-order"
-        type="button"
-        onClick={ () => navigate(`../customer/orders/${index + 1}`, { replace: false }) }
-        disabled={ disable }
-      >
-        FINALIZAR O PEDIDO
-      </button>
+        <div
+          data-testid="customer_checkout__element-order-total-price"
+          value={ totalCost.toFixed(2) }
+        >
+          Total:
+          { totalCost.toFixed(2).replace('.', ',') }
+        </div>
+        <select
+          data-testid="customer_checkout__select-seller"
+          onChange={ (e) => setSeller(e.target.value) }
+          value={ seller }
+        >
+          Pessoa Vendedora Responsável:
+          {sellers.map(({ id, name }) => (
+            <option key={ id } value={ id }>{name}</option>
+          ))}
+        </select>
+        <div> Endereço </div>
+        <input
+          data-testid="customer_checkout__input-address"
+          type="text"
+          onChange={ (event) => handleDisableText(event) }
+          value={ deliveryAddress }
+        />
+        <div> Número </div>
+        <input
+          data-testid="customer_checkout__input-addressNumber"
+          type="number"
+          onChange={ (event) => handleDisableNumber(event) }
+          min="1"
+          value={ deliveryNumber }
+        />
+        <button
+          data-testid="customer_checkout__button-submit-order"
+          type="submit"
+          disabled={ disable }
+        >
+          FINALIZAR O PEDIDO
+        </button>
+      </form>
     </div>
   );
 }
