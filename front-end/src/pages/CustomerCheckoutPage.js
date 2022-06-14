@@ -1,17 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
 export default function CheckoutPage() {
-  const { cart, setCart } = useContext(AppContext);
+  const { cart } = useContext(AppContext);
   const [disable, setDisable] = useState(true);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const [newCart, setNewCart] = useState([]);
+  const [totalCost, setTotalCost] = useState(0);
 
   function handleRemove(index) {
-    const aux = [...cart];
+    const aux = [...newCart];
     aux.splice(index, 1);
-    setCart(aux);
+    setNewCart(aux);
   }
 
   let text;
@@ -39,70 +41,94 @@ export default function CheckoutPage() {
     }
   }
 
-  function cartCheckout(element, index) {
-    if (element.quantity > 0) {
-      return (
-        <div>
-          <div>
-            <p
-              data-testid={ `
-              customer_checkout__element-order-table-item-number-${index}` }
-              className="item"
-            >
-              {element.id}
+  function populateNewCart() {
+    const itemsList = [];
+    cart.forEach((cartItem) => {
+      if (cartItem.quantity > 0) {
+        itemsList.push(cartItem);
+      }
+    });
+    setNewCart([...itemsList]);
+  }
 
-            </p>
-            <p
-              data-testid={ `customer_checkout__element-order-table-name-${index}` }
-              className="item"
-            >
-              {element.name}
+  useEffect(() => {
+    populateNewCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-            </p>
-            <p
-              data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
-              className="item"
-            >
-              {element.quantity}
-
-            </p>
-            <p
-              data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
-              className="item"
-            >
-              {element.price.replace('.', ',')}
-
-            </p>
-            <p
-              data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
-              className="item"
-            >
-              {(element.price * element.quantity).toFixed(2)}
-
-            </p>
-            <button
-              className="item"
-              type="button"
-              onClick={ () => handleRemove(index) }
-              data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-            >
-              Remover
-
-            </button>
-          </div>
-        </div>
-      );
+  useEffect(() => {
+    function SumTotalCost() {
+      let sum = 0;
+      newCart.forEach((item) => {
+        sum += (item.price * item.quantity);
+      });
+      setTotalCost(sum);
+      return sum;
     }
+    SumTotalCost();
+  }, [newCart]);
+
+  function cartCheckout(element, index) {
+    console.log(index);
+
+    return (
+      <div>
+        <div>
+          <p
+            data-testid={ `customer_checkout__element-order-table-item-number--${index}` }
+            className="item"
+          >
+            {index + 1}
+          </p>
+          <p
+            data-testid={ `customer_checkout__element-order-table-name--${index}` }
+            className="item"
+          >
+            {element.name}
+          </p>
+          <p
+            data-testid={ `customer_checkout__element-order-table-quantity--${index}` }
+            className="item"
+          >
+            {element.quantity}
+          </p>
+          <p
+            data-testid={ `customer_checkout__element-order-table-unit-price--${index}` }
+            className="item"
+          >
+            {element.price.replace('.', ',')}
+          </p>
+          <p
+            data-testid={ `customer_checkout__element-order-table-sub-total--${index}` }
+            className="item"
+          >
+            {
+              (element.price * element.quantity).toFixed(2).replace('.', ',')
+            }
+
+          </p>
+          <button
+            className="item"
+            type="button"
+            onClick={ () => handleRemove(index) }
+            data-testid={ `customer_checkout__element-order-table-remove--${index}` }
+          >
+            Remover
+
+          </button>
+        </div>
+      </div>
+    );
   }
   return (
     <div>
-      <div className="item2">item</div>
+      {/* <div className="item2">item</div>
       <div className="item2">Descrição</div>
       <div className="item2">Quantidade</div>
       <div className="item2">Valor Unitário</div>
       <div className="item2">Sub-total</div>
-      <div className="item2">Remover Item</div>
-      {cart.map((element, index) => (
+      <div className="item2">Remover Item</div> */}
+      {newCart.map((element, index) => (
         <div
           key={ index }
         >
@@ -113,10 +139,11 @@ export default function CheckoutPage() {
       <div
         data-testid="customer_checkout__element-order-total-price"
       >
-        Total
+        Total:
+        { totalCost.toFixed(2).replace('.', ',') }
       </div>
       <select
-        data-testid={ '"customer_checkout__select-seller' }
+        data-testid="customer_checkout__select-seller"
       >
         Pessoa Vendedora Responsável:
         <option>Fulana Peireira</option>
@@ -137,11 +164,10 @@ export default function CheckoutPage() {
       <button
         data-testid="customer_checkout__button-submit-order"
         type="button"
-        onClick={ () => navigate(`../customer/orders/${id}`, { replace: false }) }
+        onClick={ () => navigate(`../customer/orders/${index + 1}`, { replace: false }) }
         disabled={ disable }
       >
         FINALIZAR O PEDIDO
-
       </button>
     </div>
   );
