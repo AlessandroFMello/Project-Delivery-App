@@ -10,7 +10,7 @@ import getTokenData from '../services/getTokenData';
 export default function LoginPage(/* { history } */) {
   const [invalidUser, setInvalidUser] = useState(false);
   const {
-    visible, setVisible, email, setEmail, setName, setRole,
+    visible, setVisible, email, setEmail, /* setName, setRole, */
     password, setPassword, setToken,
   } = useContext(AppContext);
 
@@ -27,31 +27,37 @@ export default function LoginPage(/* { history } */) {
 
   async function setProfileData(token) {
     const { name, role } = await getTokenData(token);
-
-    setName(name);
-    setRole(role);
-
+    // setName(name);
+    // setRole(role);
     const userStorage = localStorage.getItem('user');
-
     if (userStorage === null) {
       try {
         localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
       } catch (error) {
         console.log(error);
       }
-    } else console.log(typeof userStorage);
+    }
   }
 
   async function onSubmitLogin(e) {
     e.preventDefault();
     const token = await getToken({ email, password });
 
+    const routeToNavigate = {
+      administrator: '../admin/manage',
+      seller: '../customer/products',
+      customer: '../customer/products',
+    };
+
     if (typeof token === 'string') {
       setToken(token);
       setEmail('');
       setPassword('');
       await setProfileData(token);
-      navigate('../customer/products', { replace: true });
+      const { role } = await getTokenData(token);
+      if (routeToNavigate[role]) {
+        navigate(`${routeToNavigate[role]}`, { replace: true });
+      }
     } else {
       setInvalidUser(true);
     }
