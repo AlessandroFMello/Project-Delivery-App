@@ -31,18 +31,6 @@ const loginSchemas = Joi.object({
       'number.empty': '400|DeliveryNumber is required',
       'number.base': '400|DeliveryNumber must be a number',
     }),
-  saleDate: Joi.date().required().empty()
-    .messages({
-      'any.required': '400|SaleDate is required',
-      'date.empty': '400|SaleDate is required',
-      'date.base': '400|SaleDate must be a date',
-    }),
-  status: Joi.string().required().empty()
-    .messages({
-      'any.required': '400|Status is required',
-      'string.empty': '400|Status is required',
-      'string.base': '400|Status must be a string',
-    }),
 });
 
 module.exports = loginSchemas;
