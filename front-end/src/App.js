@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage';
 import CustomerOrdersPage from './pages/CustomerOrdersPage';
 import CustomerProductsPage from './pages/CustomerProductsPage';
 import CustomerCheckoutPage from './pages/CustomerCheckoutPage';
+import AdminPage from './pages/AdminPage';
 
 function App() {
   return (
@@ -39,6 +40,11 @@ function App() {
         exact
         path="customer/checkout"
         element={ <CustomerCheckoutPage /> }
+      />
+      <Route
+        exact
+        path="admin/manage"
+        element={ <AdminPage /> }
       />
     </Routes>
   );
