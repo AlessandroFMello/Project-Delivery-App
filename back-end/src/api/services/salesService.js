@@ -1,14 +1,16 @@
-const { Sales } = require("../../database/models")
+const { Sale } = require('../../database/models');
+const TokenGenerator = require('../tokenGenerator');
 
 class SalesService {
   constructor() {
-    this.salesModel = Sales;
+    this.salesModel = Sale;
+    this.tokenInstance = new TokenGenerator();
 
     this.NOT_FOUND = 'Sales not found';
 
     this.getAll = this.getAll.bind(this);
-    // this.getById = this.getById.bind(this);
-    //* this.create = this.create.bind(this);
+    this.getById = this.getById.bind(this);
+    this.create = this.create.bind(this);
     // this.update = this.update.bind(this);
     // this.delete = this.delete.bind(this);
   }
@@ -19,36 +21,32 @@ class SalesService {
     return { code: 200, sales };
   }
 
-  // async getById(id) {
-  //   const product = await this.productModel.findOne({ where: { id } });
+  async getById(id) {
+    const sale = await this.salesModel.findOne({ where: { id } });
 
-  //   if (!product) return { code: 404, message: this.NOT_FOUND };
+    if (!sale) return { code: 404, message: this.NOT_FOUND };
 
-  //   return { code: 200, product };
-  // }
+    return { code: 200, sale };
+  }
 
-//*  async create(data) {
-//*    const findproduct = await this.productModel.findOne({ 
-//*      where: {
-//*        [Op.or]: [{ name: data.name }, { email: data.email }],
-//*      },
-//*    });
+  async create(data) {
+    console.log(data);
+    const newSale = {
+      userId: data.userId,
+      sellerId: data.sellerId,
+      totalPrice: data.totalPrice,
+      deliveryAddress: data.deliveryAddress,
+      deliveryNumber: data.deliveryNumber,
+      saleDate: data.saleDate,
+      status: data.status,
+    };
+    const sale = await this.salesModel.create(newSale);
+    const token = await this.tokenInstance.createToken(newSale);
 
-//*      if (findproduct) return { code: 409, message: 'product already exists' };
+    if (!sale) return { code: 400, message: 'Sale not created' };
 
-//*      const newproduct = {
-//*        name: data.name,
-//*        email: data.email,
-//*        password: data.password,
-//*        role: 'customer',
-//*      };
-
-//*      const product = await this.productModel.create(newproduct);
-
-//*      if (!product) return { code: 400, message: 'product not created' };
-
-//*      return { code: 201, product: product.dataValues };
-//*    }
+    return { code: 201, sale: sale.dataValues, token };
+    }
 
   // async update(id, data) {
   //   const findproduct = await this.productModel.findOne({ where: { id } });
