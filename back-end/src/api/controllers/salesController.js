@@ -5,8 +5,8 @@ class SalesController {
     this.salesService = new SalesService();
 
     this.getAll = this.getAll.bind(this);
-    // this.getById = this.getById.bind(this);
-    //* this.create = this.create.bind(this);
+    this.getById = this.getById.bind(this);
+    this.create = this.create.bind(this);
     // this.update = this.update.bind(this);
     // this.delete = this.delete.bind(this);
   }
@@ -21,25 +21,24 @@ class SalesController {
      return res.status(code).json(sales);
    }
 
-  // async getById(req, res, _next) {
-  //   const { id } = req.params;
+  async getById(req, res, _next) {
+    const { id } = req.params;
 
-  //   const { code, product, message } = await this.productsService.getById(id);
+    const { code, sale, message } = await this.salesService.getById(id);
 
-  //   if (!product) {
-  //     return res.status(code).json({ message });
-  //   }
+    if (!sale) {
+      return res.status(code).json({ message });
+    }
 
-  //   return res.status(code).json(product);
-  // }
+    return res.status(code).json(sale);
+  }
 
-  //* async create(req, res, _next) {
-  //*   const { code, product, message } = await this.productsService.create(req.body);
-
-  //*   if (!product) {
-  //*     return res.status(code).json({ message });
-  //*   }
-
-  //   return res.status(code).json(product);
+  async create(req, res, _next) {
+   const { code, sale, message } = await this.salesService.create(req.body);
+   if (!sale) {
+     return res.status(code).json({ message });
+   }
+    return res.status(code).json(sale);
+  }
 }
    module.exports = SalesController;
