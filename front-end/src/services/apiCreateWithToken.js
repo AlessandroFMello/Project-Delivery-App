@@ -1,12 +1,13 @@
-export default async function create(data, path) {
+export default async function create(data, token, path) {
   const URL = `http://localhost:3001/${path}`;
+  console.log('api create', data, token, path);
 
   const request = await fetch(URL, {
     method: 'POST',
     body: JSON.stringify({ ...data }),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
-      Authorization: `${data.token}`,
+      Authorization: token,
     },
   });
 
