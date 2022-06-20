@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import getAll from '../services/apiGetAll';
 import create from '../services/apiCreateWithToken';
@@ -9,11 +9,11 @@ export default function CheckoutPage() {
   const [disable, setDisable] = useState(true);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState(0);
-  // const navigate = useNavigate();
   const [newCart, setNewCart] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
   const [sellers, setSellers] = useState([]);
   const [sellerId, setSellerId] = useState({});
+  const navigate = useNavigate();
 
   function handleRemove(index) {
     const aux = [...newCart];
