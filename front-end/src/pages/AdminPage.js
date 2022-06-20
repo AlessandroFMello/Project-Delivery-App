@@ -4,7 +4,7 @@ import EmailInput from '../components/administrator/EmailInput';
 import PasswordInput from '../components/administrator/PasswordInput';
 import RoleInput from '../components/administrator/RoleInput';
 import AppContext from '../context/AppContext';
-import createUser from '../services/apiCreate';
+import createUser from '../services/apiAdminCreate';
 
 export default function AdminPage() {
   const {
@@ -28,8 +28,9 @@ export default function AdminPage() {
     e.preventDefault();
 
     console.log({ name, email, password, role });
+    const { token } = await JSON.parse(localStorage.getItem('user'));
 
-    const newUser = await createUser({ name, email, password, role }, 'user');
+    const newUser = await createUser({ name, email, password, role }, token, 'user');
     if (newUser.message) {
       setInvalidRegister(true);
     }
@@ -88,7 +89,7 @@ export default function AdminPage() {
             invalidRegister
               ? (
                 <p
-                  data-testid="common_register__element-invalid_register"
+                  data-testid="admin_manage__element-invalid-register"
                 >
                   Usuário já existente
                 </p>
