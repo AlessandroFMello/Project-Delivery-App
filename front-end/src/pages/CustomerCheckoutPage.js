@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import getAll from '../services/apiGetAll';
-import create from '../services/apiCreateSemPassword';
+import create from '../services/apiCreateWithToken';
 
 export default function CheckoutPage() {
   const { cart } = useContext(AppContext);
@@ -13,7 +13,7 @@ export default function CheckoutPage() {
   const [newCart, setNewCart] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
   const [sellers, setSellers] = useState([]);
-  const [seller, setSeller] = useState({});
+  const [sellerId, setSellerId] = useState({});
 
   function handleRemove(index) {
     const aux = [...newCart];
@@ -24,20 +24,20 @@ export default function CheckoutPage() {
   function handleDisableText(event) {
     const { value } = event.target;
     setDeliveryAddress(value);
-    if (deliveryAddress && deliveryNumber) {
+    if (value && deliveryNumber) {
       setDisable(false);
     }
-    if (!deliveryAddress && deliveryNumber) {
+    if (!value || !deliveryNumber) {
       setDisable(true);
     }
   }
   function handleDisableNumber(event) {
     const { value } = event.target;
     setDeliveryNumber(Number(value));
-    if (deliveryNumber && deliveryAddress) {
+    if ((deliveryNumber && deliveryAddress) || value >= 1) {
       setDisable(false);
     }
-    if ((!deliveryNumber && deliveryAddress) || deliveryNumber < 1) {
+    if (!(deliveryNumber || deliveryAddress) || value < 1) {
       setDisable(true);
     }
   }
@@ -113,29 +113,31 @@ export default function CheckoutPage() {
     const allUsers = await getAll('user');
     const allSellers = allUsers.filter(({ role }) => role === 'seller');
     setSellers(allSellers);
-    setSeller(allSellers[0]);
+    setSellerId(allSellers[0].id);
   }
 
   async function onSubmitSale(e) {
     e.preventDefault();
     const userId = await getUserId();
+    const { token } = JSON.parse(localStorage.getItem('user'));
 
     const saleData = {
       userId,
-      sellerId: seller.id,
+      sellerId,
       totalPrice: totalCost,
       deliveryAddress,
       deliveryNumber,
     };
 
-    const sale = await create(saleData, 'sales');
+    const sale = await create(saleData, token, 'sales');
+
     console.log(sale);
     console.log(sale.sale.id);
 
-    // navigate(
-    //   `../customer/orders/${sale.id}`,
-    //   { replace: false },
-    // );
+    navigate(
+      `../customer/orders/${sale.sale.id}`,
+      { replace: false },
+    );
   }
 
   useEffect(() => {
@@ -181,7 +183,7 @@ export default function CheckoutPage() {
         <select
           data-testid="customer_checkout__select-seller"
           onChange={ (e) => setSeller(e.target.value) }
-          value={ seller }
+          value={ sellerId }
         >
           Pessoa Vendedora Responsável:
           {sellers.map(({ id, name }) => (
