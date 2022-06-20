@@ -31,6 +31,7 @@ class SalesService {
 
   async create(data) {
     console.log(data);
+
     const newSale = {
       userId: data.userId,
       sellerId: data.sellerId,
@@ -40,6 +41,7 @@ class SalesService {
       saleDate: new Date(),
       status: 'pendente',
     };
+  
     const sale = await this.salesModel.create(newSale);
     const token = await this.tokenInstance.createToken(newSale);
 
@@ -47,7 +49,7 @@ class SalesService {
 
     if (!sale) return { code: 400, message: 'Sale not created' };
 
-    return { code: 201, sale: sale.dataValues, token };
+    return { code: 201, sale: { sale: sale.dataValues, token } };
     }
 
   // async update(id, data) {
