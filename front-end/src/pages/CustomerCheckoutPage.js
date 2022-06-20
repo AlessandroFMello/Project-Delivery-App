@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import getAll from '../services/apiGetAll';
 import create from '../services/apiCreateSemPassword';
@@ -9,7 +9,7 @@ export default function CheckoutPage() {
   const [disable, setDisable] = useState(true);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState(0);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [newCart, setNewCart] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
   const [sellers, setSellers] = useState([]);
@@ -51,23 +51,6 @@ export default function CheckoutPage() {
     });
     setNewCart([...itemsList]);
   }
-
-  useEffect(() => {
-    populateNewCart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    function SumTotalCost() {
-      let sum = 0;
-      newCart.forEach((item) => {
-        sum += (item.price * item.quantity);
-      });
-      setTotalCost(sum);
-      return sum;
-    }
-    SumTotalCost();
-  }, [newCart]);
 
   function cartCheckout(element, index) {
     return (
@@ -113,7 +96,6 @@ export default function CheckoutPage() {
             data-testid={ `customer_checkout__element-order-table-remove--${index}` }
           >
             Remover
-
           </button>
         </div>
       </div>
@@ -134,37 +116,51 @@ export default function CheckoutPage() {
     setSeller(allSellers[0]);
   }
 
-  useEffect(() => {
-    getAllSellers();
-  }, []);
-
   async function onSubmitSale(e) {
     e.preventDefault();
     const userId = await getUserId();
-    console.log(e.target);
+
     const saleData = {
       userId,
       sellerId: seller.id,
-      totalCost,
+      totalPrice: totalCost,
       deliveryAddress,
       deliveryNumber,
     };
 
-    await create(saleData, 'sales');
-    // const sale = await apiCreate(data, 'sales');
+    const sale = await create(saleData, 'sales');
+    console.log(sale);
+    console.log(sale.sale.id);
+
     // navigate(
-    //   `../customer/orders/${index + 1}`,
+    //   `../customer/orders/${sale.id}`,
     //   { replace: false },
     // );
   }
+
+  useEffect(() => {
+    populateNewCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    function SumTotalCost() {
+      let sum = 0;
+      newCart.forEach((item) => {
+        sum += (item.price * item.quantity);
+      });
+      setTotalCost(sum);
+      return sum;
+    }
+    SumTotalCost();
+  }, [newCart]);
+
+  useEffect(() => {
+    getAllSellers();
+  }, []);
+
   return (
     <div>
-      {/* <div className="item2">item</div>
-      <div className="item2">Descrição</div>
-      <div className="item2">Quantidade</div>
-      <div className="item2">Valor Unitário</div>
-      <div className="item2">Sub-total</div>
-      <div className="item2">Remover Item</div> */}
       {newCart.map((element, index) => (
         <div
           key={ index }

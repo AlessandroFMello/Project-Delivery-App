@@ -1,8 +1,10 @@
 const SalesService = require('../services/salesService');
+const TokenGenerator = require('../tokenGenerator');
 
 class SalesController {
   constructor() {
     this.salesService = new SalesService();
+    this.tokenGenerator = new TokenGenerator();
 
     this.getAll = this.getAll.bind(this);
     this.getById = this.getById.bind(this);
@@ -34,10 +36,16 @@ class SalesController {
   }
 
   async create(req, res, _next) {
-   const { code, sale, message } = await this.salesService.create(req.body);
-   if (!sale) {
-     return res.status(code).json({ message });
-   }
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      return res.status(400).json({ message: 'Unauthorized' });
+    }
+    
+    const { code, sale, message } = await this.salesService.create(req.body);
+    if (!sale) {
+      return res.status(code).json({ message });
+    }
     return res.status(code).json(sale);
   }
 }

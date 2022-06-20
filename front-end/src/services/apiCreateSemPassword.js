@@ -6,6 +6,7 @@ export default async function create(data, path) {
     body: JSON.stringify({ ...data }),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
+      Authorization: `${data.token}`,
     },
   });
 
