@@ -42,7 +42,7 @@ class UserService {
       name: data.name,
       email: data.email,
       password: data.password,
-      role: 'customer',
+      role: data.role ? data.role : 'customer',
     };
 
     const user = await this.userModel.create(newUser);
