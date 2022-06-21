@@ -1,14 +1,16 @@
-// const Sale = require("./Sale");
-
 const SalesProducts = (sequelize, DataTypes) => {
   const SalesProducts = sequelize.define('SalesProducts', {
-    sale_id: {
+    saleId: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      foreignKey: true,
     },
-    ṕroduct_id: {
+    productId: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      foreignKey: true,
     },
     quantity: {
       allowNull: false,
@@ -26,14 +28,14 @@ const SalesProducts = (sequelize, DataTypes) => {
     models.Sale.belongsToMany(models.Product, {
       as: 'products',
       through: SalesProducts,
-      foreignKey: 'sale_id',
-      otherKey: 'product_id',
+      foreignKey: 'saleId',
+      otherKey: 'productId',
     });
     models.Product.belongsToMany(models.Sale, {
       as: 'sales',
       through: SalesProducts,
-      foreignKey: 'product_id',
-      otherKey: 'sale_id',
+      foreignKey: 'productId',
+      otherKey: 'saleId',
     });
   }
   

@@ -9,10 +9,20 @@ const Sale = (sequelize, DataTypes) => {
     userId: {
       allowNull: false,
       type: DataTypes.INTEGER,
+      foreignKey: true,
+      references: {
+        model: "users",
+        key: "id",
+      },
     },
     sellerId: {
       allowNull: false,
       type: DataTypes.INTEGER,
+      foreignKey: true,
+      references: {
+        model: "users",
+        key: "id",
+      },
     },
     totalPrice: {
       allowNull: false,
@@ -43,11 +53,11 @@ const Sale = (sequelize, DataTypes) => {
   });
    
   Sale.associate = (models) => {
-    Sale.belongsTo(models.User,
-      { foreignKey: 'userId', as: 'userIdFromSale' },
+    Sale.hasOne(models.User,
+      { sourceKey: "userId", foreignKey: "id", as: "user" },
     )
-    Sale.belongsTo(models.User,
-      { foreignKey: 'sellerId', as: 'sellerIdFromSale' },
+    Sale.hasOne(models.User,
+      { sourceKey: "sellerId", foreignKey: "id", as: "seller" },
     )
   }
   

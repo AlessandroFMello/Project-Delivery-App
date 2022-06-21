@@ -6,6 +6,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         primaryKey: true,
+        foreignKey: true,
         references: {
           model: 'sales', 
           key: 'id'
@@ -17,6 +18,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         primaryKey: true,
+        foreignKey: true,
         references: {
           model: 'products', 
           key: 'id'
@@ -31,6 +33,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('salesProducts');
+    await queryInterface.dropTable('sales_products');
   }
 };
