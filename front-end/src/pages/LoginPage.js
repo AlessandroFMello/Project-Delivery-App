@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import getToken from '../services/getToken';
@@ -62,6 +62,9 @@ export default function LoginPage(/* { history } */) {
       setInvalidUser(true);
     }
   }
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   return (
     <div className="login-page-container">
