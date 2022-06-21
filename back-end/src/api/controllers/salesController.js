@@ -36,13 +36,8 @@ class SalesController {
   }
 
   async create(req, res, _next) {
-    const { authorization } = req.headers;
-
-    if (!authorization) {
-      return res.status(400).json({ message: 'Unauthorized' });
-    }
-    
     const { code, sale, message } = await this.salesService.create(req.body);
+    
     if (!sale) {
       return res.status(code).json({ message });
     }
