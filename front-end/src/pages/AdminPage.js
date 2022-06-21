@@ -27,14 +27,12 @@ export default function AdminPage() {
   async function onSubmitUser(e) {
     e.preventDefault();
 
-    console.log({ name, email, password, role });
     const { token } = await JSON.parse(localStorage.getItem('user'));
 
     const newUser = await createUser({ name, email, password, role }, token, 'user');
     if (newUser.message) {
       setInvalidRegister(true);
     }
-    console.log(newUser);
     setName('');
     setEmail('');
     setPassword('');
