@@ -12,7 +12,7 @@ export default function CheckoutPage() {
   const [newCart, setNewCart] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
   const [sellers, setSellers] = useState([]);
-  const [sellerId, setSellerId] = useState({});
+  const [sellerId, setSellerId] = useState();
   const navigate = useNavigate();
 
   function handleRemove(index) {
@@ -123,21 +123,21 @@ export default function CheckoutPage() {
 
     const saleData = {
       userId,
-      sellerId,
+      sellerId: Number(sellerId),
       totalPrice: totalCost,
       deliveryAddress,
-      deliveryNumber,
+      deliveryNumber: deliveryNumber.toString(),
+      products: newCart,
     };
 
     const sale = await create(saleData, token, 'sales');
 
-    console.log(sale);
-    console.log(sale.sale.id);
-
-    navigate(
-      `../customer/orders/${sale.sale.id}`,
-      { replace: false },
-    );
+    if (sale.id) {
+      navigate(
+        `../customer/orders/${sale.id}`,
+        { replace: false },
+      );
+    }
   }
 
   useEffect(() => {
@@ -182,7 +182,7 @@ export default function CheckoutPage() {
         </div>
         <select
           data-testid="customer_checkout__select-seller"
-          onChange={ (e) => setSeller(e.target.value) }
+          onChange={ (e) => setSellerId(e.target.value) }
           value={ sellerId }
         >
           Pessoa Vendedora Responsável:
