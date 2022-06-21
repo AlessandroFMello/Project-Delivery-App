@@ -33,7 +33,6 @@ export default function RegisterPage() {
     } else {
       navigate('../customer/products', { replace: true });
     }
-    console.log(newUser);
   }
 
   return (
