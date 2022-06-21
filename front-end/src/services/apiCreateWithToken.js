@@ -1,6 +1,5 @@
 export default async function create(data, token, path) {
   const URL = `http://localhost:3001/${path}`;
-  console.log('api create', data, token, path);
 
   const request = await fetch(URL, {
     method: 'POST',
