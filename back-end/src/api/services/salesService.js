@@ -1,16 +1,17 @@
 const { Sale } = require('../../database/models');
-const TokenGenerator = require('../tokenGenerator');
+const { SalesProducts } = require('../../database/models');
 
 class SalesService {
   constructor() {
     this.salesModel = Sale;
-    this.tokenInstance = new TokenGenerator();
+    this.salesProductsModel = SalesProducts;
 
     this.NOT_FOUND = 'Sales not found';
 
     this.getAll = this.getAll.bind(this);
     this.getById = this.getById.bind(this);
     this.create = this.create.bind(this);
+    this.salesProductsCreate = this.salesProductsCreate.bind(this);
     // this.update = this.update.bind(this);
     // this.delete = this.delete.bind(this);
   }
@@ -29,9 +30,18 @@ class SalesService {
     return { code: 200, sale };
   }
 
-  async create(data) {
-    console.log(data);
+  salesProductsCreate(data, sale) {
+    return (
+    data.products.forEach(async (product) => {
+      await this.salesProductsModel.create({
+        saleId: sale.dataValues.id,
+        productId: product.id,
+        quantity: product.quantity,
+      });
+    }));
+  }
 
+  async create(data) {
     const newSale = {
       userId: data.userId,
       sellerId: data.sellerId,
@@ -39,18 +49,17 @@ class SalesService {
       deliveryAddress: data.deliveryAddress,
       deliveryNumber: data.deliveryNumber,
       saleDate: new Date(),
-      status: 'pendente',
+      status: 'Pendente',
     };
   
     const sale = await this.salesModel.create(newSale);
-    const token = await this.tokenInstance.createToken(newSale);
-
-    console.log(sale);
 
     if (!sale) return { code: 400, message: 'Sale not created' };
 
-    return { code: 201, sale: { sale: sale.dataValues, token } };
-    }
+    await this.salesProductsCreate(data, sale);
+
+    return { code: 201, sale: sale.dataValues };
+  }
 
   // async update(id, data) {
   //   const findproduct = await this.productModel.findOne({ where: { id } });
