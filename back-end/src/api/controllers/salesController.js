@@ -8,6 +8,7 @@ class SalesController {
 
     this.getAll = this.getAll.bind(this);
     this.getById = this.getById.bind(this);
+    this.getSalesByUserId = this.getSalesByUserId.bind(this);
     this.create = this.create.bind(this);
     // this.update = this.update.bind(this);
     // this.delete = this.delete.bind(this);
@@ -33,6 +34,18 @@ class SalesController {
     }
 
     return res.status(code).json(sale);
+  }
+
+  async getSalesByUserId(req, res, _next) {
+    const { id } = req.params;
+
+    const { code, userSales, message } = await this.salesService.getSalesByUserId(id);
+
+    if (!userSales) {
+      return res.status(code).json({ message });
+    }
+
+    return res.status(code).json(userSales);
   }
 
   async create(req, res, _next) {
