@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import getAll from '../services/apiGetAll';
 import create from '../services/apiCreateWithToken';
+import Header from '../components/Header';
 
 export default function CheckoutPage() {
   const { cart } = useContext(AppContext);
@@ -135,7 +136,7 @@ export default function CheckoutPage() {
     if (sale.id) {
       navigate(
         `../customer/orders/${sale.id}`,
-        { replace: false },
+        { replace: true },
       );
     }
   }
@@ -163,6 +164,7 @@ export default function CheckoutPage() {
 
   return (
     <div>
+      <Header />
       {newCart.map((element, index) => (
         <div
           key={ index }
