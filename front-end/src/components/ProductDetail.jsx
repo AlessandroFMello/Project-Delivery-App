@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function ProductDetail({ sale }) {
+  const dateArray = sale.saleDate.split('T')[0].split('-');
   return (
     <div>
       <p
@@ -17,7 +18,7 @@ export default function ProductDetail({ sale }) {
       <p
         data-testid={ `customer_orders__element-order-date--${sale.id}` }
       >
-        {Date(sale.saleDate)}
+        {`${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`}
       </p>
       <p
         data-testid={ `customer_orders__element-card-price-${sale.id}` }
