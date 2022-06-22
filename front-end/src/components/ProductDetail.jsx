@@ -21,9 +21,9 @@ export default function ProductDetail({ sale }) {
         {`${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`}
       </p>
       <p
-        data-testid={ `customer_orders__element-card-price-${sale.id}` }
+        data-testid={ `customer_orders__element-card-price--${sale.id}` }
       >
-        {sale.totalPrice}
+        {(Number(sale.totalPrice)).toFixed(2).toString().replace('.', ',')}
       </p>
     </div>
   );
@@ -32,8 +32,8 @@ export default function ProductDetail({ sale }) {
 ProductDetail.propTypes = {
   sale: PropTypes.shape({
     id: PropTypes.number,
-    saleDate: PropTypes.isRequired,
+    saleDate: PropTypes.string.isRequired,
     status: PropTypes.string,
-    totalPrice: PropTypes.number,
+    totalPrice: PropTypes.string,
   }).isRequired,
 };
