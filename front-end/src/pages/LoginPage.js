@@ -20,7 +20,7 @@ export default function LoginPage(/* { history } */) {
       navigate(`${routeToNavigate[role]}`, { replace: true });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  }, []);
 
   return (
     <div className="login-page-container">

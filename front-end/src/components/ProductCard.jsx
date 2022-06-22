@@ -19,7 +19,7 @@ export default function ProductCard({ product }) {
     cart.push(newProduct);
     setCart([...cart]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  }, []);
 
   useEffect(() => {
     const cartItem = cart.find((c) => c.id === product.id);
