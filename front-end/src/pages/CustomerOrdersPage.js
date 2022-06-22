@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import apiGetAll from '../services/apiGetAll';
 import Header from '../components/Header';
+import ProductDetail from '../components/ProductDetail';
 
 export default function CustomerOrdersPage() {
   const [allSales, setAllSales] = useState([]);
+  const navigate = useNavigate();
 
   async function getAllSales() {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -21,30 +24,15 @@ export default function CustomerOrdersPage() {
         <Header />
         <div className="customer-orders-main-container">
           {allSales.map((sale, index) => (
-            <div
+            <button
               key={ index }
+              onClick={ () => {
+                navigate(`customer/orders/${sale.id}`);
+              } }
+              type="button"
             >
-              <p
-                data-testid={ `customer_orders__element-order-id-${sale.id}` }
-              >
-                {sale.id}
-              </p>
-              <p
-                data-testid={ `customer_orders__element-delivery-status-${sale.id}` }
-              >
-                {sale.status}
-              </p>
-              <p
-                data-testid={ `customer_orders__element-order-date-${sale.id}` }
-              >
-                {Date(sale.saleDate)}
-              </p>
-              <p
-                data-testid={ `customer_orders__element-card-price-${sale.id}` }
-              >
-                {sale.totalPrice}
-              </p>
-            </div>
+              <ProductDetail sale={ sale } />
+            </button>
           ))}
 
         </div>
