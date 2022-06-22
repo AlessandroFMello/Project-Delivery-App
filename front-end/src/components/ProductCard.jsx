@@ -48,7 +48,7 @@ export default function ProductCard({ product }) {
   }
 
   return (
-    <div>
+    <div className='card'>
       <p
         data-testid={ `customer_products__element-card-title-${product.id}` }
       >
@@ -70,6 +70,7 @@ export default function ProductCard({ product }) {
         onClick={ () => handleDecrement() }
         data-testid={ `customer_products__button-card-rm-item-${product.id}` }
         type="button"
+        className="buttonNegative"
       >
         -
       </button>
@@ -79,11 +80,13 @@ export default function ProductCard({ product }) {
         onChange={ (event) => handleChange(event) }
         value={ quantity }
         data-testid={ `customer_products__input-card-quantity--${product.id}` }
+        className="quantity"
       />
       <button
         onClick={ () => handleIncrement() }
         data-testid={ `customer_products__button-card-add-item--${product.id}` }
         type="button"
+        className="buttonPositive"
       >
         +
       </button>

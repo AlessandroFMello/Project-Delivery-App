@@ -82,11 +82,12 @@ export default function LoginForm() {
         variant="success"
         type="submit"
         disabled={ validateLogin() }
-      >
+        className="buttonLogin"
+        >
         LOGIN
       </button>
       <button
-        className="login-register-btn"
+        className="buttonLogin"
         data-testid="common_login__button-register"
         variant="success"
         type="button"

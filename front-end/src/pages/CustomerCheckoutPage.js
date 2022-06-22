@@ -165,6 +165,12 @@ export default function CheckoutPage() {
   return (
     <div>
       <Header />
+      <p className='item2'>Item</p>
+      <p className='item2'>Descrição</p>
+      <p className='item2'>Quantidade</p>
+      <p className='item2'>Valor Unitário</p>
+      <p className='item2'>Sub-total</p>
+      <p className='item2'>Remover Item</p>
       {newCart.map((element, index) => (
         <div
           key={ index }

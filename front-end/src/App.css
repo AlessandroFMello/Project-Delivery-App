@@ -53,10 +53,6 @@
   text-align: center;
 }
 
-.login-register-btn {
-  margin-top: 20px;
-}
-
 .register-page-container {
   align-items: center;
   background-image: url('./images/drink-background.jpg');
@@ -99,6 +95,10 @@
   font-family: system-ui , -apple-system , Helvetica , Arial , sans-serif;
   height: 8vh;
   justify-content: space-around;
+  margin-left: -20px;
+  margin-top: -20px;
+  padding: 14px;
+  width: 100%;
 }
 
 .navBar-a {
@@ -120,4 +120,64 @@
   margin: 5px;
   text-align: center;
   width: 80px;
+}
+
+.inputEmail {
+  font: small-caption;
+  font-size: 16px;
+  margin-left: -2px;
+}
+
+.inputPassoword {
+  font: small-caption;
+  font-size: 16px;
+  margin-left: 25px;
+}
+
+.buttonLogin {
+  background-color: mediumseagreen;
+  border: none;
+  cursor: pointer;
+  margin: 3px;
+  padding: 14px;
+  width: 100%;
+}
+
+.buttonLogin:hover {
+  opacity: 0.8;
+}
+
+.buttonNegative {
+  background-color: darkred;
+  color: white;
+  cursor: pointer;
+}
+
+.buttonNegative:hover {
+  opacity: 0.8;
+}
+
+.buttonPositive {
+  background-color: darkgreen;
+  color: white;
+  cursor: pointer;
+}
+
+.buttonPositive:hover {
+  opacity: 0.8;
+}
+
+.card {
+  cursor: pointer;
+  display: inline-block;
+  outline: 0.1rem solid black;
+  outline-offset: -1.5rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  width: 200px;
+}
+
+.quantity {
+  text-align: center;
+  width: 40px;
 }
