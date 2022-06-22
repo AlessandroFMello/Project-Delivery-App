@@ -8,6 +8,8 @@ const salesController = new SalesController();
 
 router.get('/:id', salesController.getById);
 
+router.get('/customer/:id', salesController.getSalesByUserId);
+
 router.post('/', salesMiddleware, salesController.create);
 
 // router.patch('/:id', salesMiddleware, salesController.update);
