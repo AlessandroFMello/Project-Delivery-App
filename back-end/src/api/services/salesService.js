@@ -1,5 +1,4 @@
-const { Sale } = require('../../database/models');
-const { SalesProducts } = require('../../database/models');
+const { Sale, SalesProducts, Product } = require('../../database/models');
 
 class SalesService {
   constructor() {
@@ -12,13 +11,17 @@ class SalesService {
     this.getById = this.getById.bind(this);
     this.create = this.create.bind(this);
     this.salesProductsCreate = this.salesProductsCreate.bind(this);
+    this.getSalesByUserId = this.getSalesByUserId.bind(this);
     // this.update = this.update.bind(this);
     // this.delete = this.delete.bind(this);
   }
 
   async getAll() {
-    const sales = await this.salesModel.findAll();
-
+    const sales = await this.salesModel.findAll({
+      include: [{
+        model: Product, as: 'products',
+      }],
+    });
     return { code: 200, sales };
   }
 
@@ -28,6 +31,14 @@ class SalesService {
     if (!sale) return { code: 404, message: this.NOT_FOUND };
 
     return { code: 200, sale };
+  }
+
+  async getSalesByUserId(id) {
+    const userSales = await this.salesModel.findAll({ where: { userId: id } });
+
+    if (!userSales) return { code: 404, message: this.NOT_FOUND };
+
+    return { code: 200, userSales };
   }
 
   salesProductsCreate(data, sale) {
