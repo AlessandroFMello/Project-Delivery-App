@@ -10,6 +10,8 @@ router.get('/:id', salesController.getById);
 
 router.get('/customer/:id', salesController.getSalesByUserId);
 
+router.get('/seller/:id', salesController.getSalesBySellerId);
+
 router.post('/', salesMiddleware, salesController.create);
 
 // router.patch('/:id', salesMiddleware, salesController.update);
