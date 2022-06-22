@@ -8,6 +8,7 @@ import CustomerProductsPage from './pages/CustomerProductsPage';
 import CustomerCheckoutPage from './pages/CustomerCheckoutPage';
 import AdminPage from './pages/AdminPage';
 import CustomerProductsDetailPage from './pages/CustomerProductsDetailPage';
+import SellerOrdersPage from './pages/SellerOrdersPage';
 
 function App() {
   return (
@@ -36,6 +37,11 @@ function App() {
         exact
         path="customer/orders/:id"
         element={ <CustomerProductsDetailPage /> }
+      />
+      <Route
+        exact
+        path="seller/orders"
+        element={ <SellerOrdersPage /> }
       />
       <Route
         exact
