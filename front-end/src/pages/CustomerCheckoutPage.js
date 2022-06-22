@@ -144,7 +144,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     populateNewCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   useEffect(() => {
     function SumTotalCost() {
