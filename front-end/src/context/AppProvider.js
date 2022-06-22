@@ -15,6 +15,7 @@ function AppProvider({ children }) {
   const [cost, setCost] = useState(0);
   const [lastValue, setLastValue] = useState(0);
   const [cart, setCart] = useState([]);
+  const [invalidUser, setInvalidUser] = useState(false);
 
   const context = {
     email,
@@ -41,6 +42,8 @@ function AppProvider({ children }) {
     setLastValue,
     cart,
     setCart,
+    invalidUser,
+    setInvalidUser,
   };
 
   return (
