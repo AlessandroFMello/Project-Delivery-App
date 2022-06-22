@@ -1,4 +1,4 @@
-const { Sale, SalesProducts, Product } = require('../../database/models');
+const { Sale, SalesProducts, Product, User } = require('../../database/models');
 
 class SalesService {
   constructor() {
@@ -26,7 +26,12 @@ class SalesService {
   }
 
   async getById(id) {
-    const sale = await this.salesModel.findOne({ where: { id } });
+    const sale = await this.salesModel.findOne({
+      where: { id },
+      include: [
+        { model: Product, as: 'products' }, { model: User, as: 'seller' },
+      ],
+      });
 
     if (!sale) return { code: 404, message: this.NOT_FOUND };
 
