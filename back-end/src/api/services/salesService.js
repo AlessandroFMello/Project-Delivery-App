@@ -12,6 +12,7 @@ class SalesService {
     this.create = this.create.bind(this);
     this.salesProductsCreate = this.salesProductsCreate.bind(this);
     this.getSalesByUserId = this.getSalesByUserId.bind(this);
+    this.getSalesBySellerId = this.getSalesBySellerId.bind(this);
     // this.update = this.update.bind(this);
     // this.delete = this.delete.bind(this);
   }
@@ -44,6 +45,14 @@ class SalesService {
     if (!userSales) return { code: 404, message: this.NOT_FOUND };
 
     return { code: 200, userSales };
+  }
+
+  async getSalesBySellerId(id) {
+    const sellerSales = await this.salesModel.findAll({ where: { sellerId: id } });
+
+    if (!sellerSales) return { code: 404, message: this.NOT_FOUND };
+
+    return { code: 200, sellerSales };
   }
 
   salesProductsCreate(data, sale) {
