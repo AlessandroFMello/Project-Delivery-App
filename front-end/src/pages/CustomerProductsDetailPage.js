@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Header from '../components/Header';
 import getById from '../services/apiGetById';
 
 export default function CustomerProductsDetailPage() {
@@ -49,7 +50,6 @@ export default function CustomerProductsDetailPage() {
   function renderTableBody() {
     return (
       <tbody>
-        {console.log(sale)}
         {
           sale.products && (
             sale.products.map((product, index) => (
@@ -97,6 +97,7 @@ export default function CustomerProductsDetailPage() {
 
   return (
     <div>
+      <Header />
       <div>
         <p>Detalhe do Pedido</p>
       </div>
