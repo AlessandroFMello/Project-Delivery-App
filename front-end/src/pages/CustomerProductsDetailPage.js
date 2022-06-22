@@ -141,12 +141,12 @@ export default function CustomerProductsDetailPage() {
         </div>
       </div>
       <div>
-        <button
-          type="button"
+        Total:
+        <div
           data-testid="customer_order_details__element-order-total-price"
         >
-          {`Total: R$ ${totalCost.toFixed(2).toString().replace('.', ',')}`}
-        </button>
+          { totalCost.toFixed(2).toString().replace('.', ',') }
+        </div>
       </div>
     </div>
   );
