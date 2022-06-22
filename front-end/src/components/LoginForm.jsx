@@ -16,7 +16,7 @@ export default function LoginForm() {
 
   const routeToNavigate = {
     administrator: '../admin/manage',
-    seller: '../customer/products',
+    seller: '../seller/orders',
     customer: '../customer/products',
   };
 

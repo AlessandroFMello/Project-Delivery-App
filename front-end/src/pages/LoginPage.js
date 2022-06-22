@@ -11,7 +11,7 @@ export default function LoginPage(/* { history } */) {
     const logged = localStorage.getItem('isLogged');
     const routeToNavigate = {
       administrator: '../admin/manage',
-      seller: '../customer/products',
+      seller: '../seller/orders',
       customer: '../customer/products',
     };
 
