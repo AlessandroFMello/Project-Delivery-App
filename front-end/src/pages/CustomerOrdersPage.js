@@ -27,7 +27,7 @@ export default function CustomerOrdersPage() {
             <button
               key={ index }
               onClick={ () => {
-                navigate(`customer/orders/${sale.id}`);
+                navigate(`./${sale.id}`);
               } }
               type="button"
             >
