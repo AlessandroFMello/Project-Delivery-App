@@ -10,7 +10,7 @@ export default function Header() {
     <nav className="navBar">
       <a
         className="navBar-a"
-        href="/customer/checkout"
+        href="/customer/products"
         data-testid="customer_products__element-navbar-link-products"
       >
         Produtos
@@ -23,15 +23,14 @@ export default function Header() {
         {' '}
         Meus Pedidos
       </a>
-      <a
+      <p
         className="navBar-a"
-        href="/register"
         data-testid="customer_products__element-navbar-user-full-name"
       >
         {!nameInStorage
           ? name
           : nameInStorage.name}
-      </a>
+      </p>
       <a
         data-testid="customer_products__element-navbar-link-logout"
         className="navBar-a"

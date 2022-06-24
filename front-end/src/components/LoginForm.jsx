@@ -83,7 +83,7 @@ export default function LoginForm() {
         type="submit"
         disabled={ validateLogin() }
         className="buttonLogin"
-        >
+      >
         LOGIN
       </button>
       <button

@@ -83,8 +83,9 @@ export default function CustomerProductsDetailPage() {
               ${index}}` }
                 >
                   {
-                    `R$${(Number(product.price)
-                      * Number(product.SalesProducts.quantity))}`
+                    `R$${((Number(product.price)
+                      * Number(product.SalesProducts.quantity))
+                      .toFixed(2).toString().replace('.', ','))}`
                   }
                 </td>
               </tr>
