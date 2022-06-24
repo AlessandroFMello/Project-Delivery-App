@@ -47,6 +47,7 @@ export default function RegisterPage() {
             variant="success"
             type="submit"
             disabled={ validateRegister() }
+            className="buttonRegister"
           >
             Register
           </button>

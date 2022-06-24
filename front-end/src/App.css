@@ -111,16 +111,20 @@
 .item {
   display: inline-block;
   margin: 5px;
+  margin-left: 35px;
   text-align: center;
-  width: 80px;
+  width: 200px;
 }
 
 .item2 {
   display: inline-block;
   margin: 5px;
+  margin-left: 35px;
+  margin-top: 30px;
   text-align: center;
-  width: 80px;
+  width: 200px;
 }
+
 
 .inputEmail {
   font: small-caption;
@@ -180,4 +184,79 @@
 .quantity {
   text-align: center;
   width: 40px;
+}
+
+.total {
+  background-color: mediumseagreen;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.total:hover {
+  opacity: 0.8;
+}
+
+.remove {
+  background-color: skyblue;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 100px;
+}
+
+.remove:hover {
+  opacity: 0.8;
+}
+
+.totalPrice {
+  text-align: center;
+}
+
+.endOfList {
+  border-radius: 3px;
+  margin-left: 600px;
+  margin-top: 100px;
+  width: 20%;
+}
+
+.detailNumberInput {
+  text-align: center;
+}
+
+.detailNumber {
+  margin-left: 2px;
+
+}
+
+.detailText {
+  margin-left: 2px;
+}
+
+.detail {
+  display: inline-flex;
+  margin-left: 350px;
+  outline: 0.1rem solid black;
+  outline-offset: -2.5rem;
+  padding: 3rem 5rem;
+  text-align: center;
+  width: 600px;
+}
+
+.sellerSelect {
+  height: 22px;
+  text-align: center;
+  width: 200px;
+}
+
+.buttonRegister {
+  background-color: mediumseagreen;
+  border: none;
+  cursor: pointer;
+  margin: 3px;
+  margin-top: 30px;
+  padding: 14px;
+  width: 100%;
+}
+
+.buttonRegister:hover {
+  opacity: 0.8;
 }

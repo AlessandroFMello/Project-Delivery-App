@@ -66,6 +66,7 @@ export default function ProductCard({ product }) {
         width="100px"
         height="100px"
       />
+      <section>
       <button
         onClick={ () => handleDecrement() }
         data-testid={ `customer_products__button-card-rm-item-${product.id}` }
@@ -90,6 +91,7 @@ export default function ProductCard({ product }) {
       >
         +
       </button>
+      </section>
     </div>
   );
 }

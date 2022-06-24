@@ -91,7 +91,7 @@ export default function CheckoutPage() {
 
           </p>
           <button
-            className="item"
+            className={("item","remove")}
             type="button"
             onClick={ () => handleRemove(index) }
             data-testid={ `customer_checkout__element-order-table-remove--${index}` }
@@ -184,27 +184,37 @@ export default function CheckoutPage() {
         <div
           data-testid="customer_checkout__element-order-total-price"
           value={ totalCost.toFixed(2) }
+          className="totalPrice"
         >
           Total:
           { totalCost.toFixed(2).replace('.', ',') }
         </div>
+        <section className='detail'>
+        <section>
+          <div> Pessoa Vendedora Responsável:</div>
         <select
           data-testid="customer_checkout__select-seller"
           onChange={ (e) => setSellerId(e.target.value) }
           value={ sellerId }
+          className="sellerSelect"
         >
-          Pessoa Vendedora Responsável:
           {sellers.map(({ id, name }) => (
             <option key={ id } value={ id }>{name}</option>
           ))}
         </select>
-        <div> Endereço </div>
+        </section>
+        <section className="detailText">
+        <div>
+        Endereço
+        </div>
         <input
           data-testid="customer_checkout__input-address"
           type="text"
           onChange={ (event) => handleDisableText(event) }
           value={ deliveryAddress }
-        />
+          />
+        </section>
+        <section className="detailNumber">
         <div> Número </div>
         <input
           data-testid="customer_checkout__input-addressNumber"
@@ -212,11 +222,15 @@ export default function CheckoutPage() {
           onChange={ (event) => handleDisableNumber(event) }
           min="1"
           value={ deliveryNumber }
+          className="detailNumberInput"
         />
+        </section>
+        </section>
         <button
           data-testid="customer_checkout__button-submit-order"
           type="submit"
           disabled={ disable }
+          className="endOfList"
         >
           FINALIZAR O PEDIDO
         </button>

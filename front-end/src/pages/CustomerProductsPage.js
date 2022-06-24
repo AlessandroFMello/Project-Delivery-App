@@ -59,6 +59,7 @@ export default function ProductsPage() {
         data-testid="customer_products__button-cart"
         disabled={ disableCartBtn }
         onClick={ () => { navigate('/customer/checkout'); } }
+        className="total"
       >
         Ver Carrinho: R$
         <span
