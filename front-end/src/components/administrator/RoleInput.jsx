@@ -9,6 +9,7 @@ export default function RoleInput() {
         data-testid="admin_manage__select-role"
         onChange={ ({ target }) => setRole(target.value) }
         value={ role }
+        className="roleAdm"
       >
         <option value="customer">Customer</option>
         <option value="seller">Seller</option>

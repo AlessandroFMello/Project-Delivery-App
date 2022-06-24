@@ -91,7 +91,7 @@ export default function CheckoutPage() {
 
           </p>
           <button
-            className={("item","remove")}
+            className={ ('item', 'remove') }
             type="button"
             onClick={ () => handleRemove(index) }
             data-testid={ `customer_checkout__element-order-table-remove--${index}` }
@@ -165,12 +165,12 @@ export default function CheckoutPage() {
   return (
     <div>
       <Header />
-      <p className='item2'>Item</p>
-      <p className='item2'>Descrição</p>
-      <p className='item2'>Quantidade</p>
-      <p className='item2'>Valor Unitário</p>
-      <p className='item2'>Sub-total</p>
-      <p className='item2'>Remover Item</p>
+      <p className="item2">Item</p>
+      <p className="item2">Descrição</p>
+      <p className="item2">Quantidade</p>
+      <p className="item2">Valor Unitário</p>
+      <p className="item2">Sub-total</p>
+      <p className="item2">Remover Item</p>
       {newCart.map((element, index) => (
         <div
           key={ index }
@@ -189,9 +189,9 @@ export default function CheckoutPage() {
           Total:
           { totalCost.toFixed(2).replace('.', ',') }
         </div>
-        <section className='detail'>
-        <section>
-          <div> Pessoa Vendedora Responsável:</div>
+        <section className="detail">
+          <section>
+      <div> Pessoa Vendedora Responsável:</div>
         <select
           data-testid="customer_checkout__select-seller"
           onChange={ (e) => setSellerId(e.target.value) }
@@ -202,7 +202,7 @@ export default function CheckoutPage() {
             <option key={ id } value={ id }>{name}</option>
           ))}
         </select>
-        </section>
+          </section>
         <section className="detailText">
         <div>
         Endereço

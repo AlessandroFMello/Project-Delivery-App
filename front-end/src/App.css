@@ -260,3 +260,32 @@
 .buttonRegister:hover {
   opacity: 0.8;
 }
+
+.inputAdm{
+  font: small-caption;
+  font-size: 16px;
+  margin-left: -2px;
+ margin-bottom: 15px;
+}
+
+.roleAdm{
+ text-align: center;
+ margin-bottom: 15px;
+ height: 22px;
+ text-align: center;
+ width: 220px;
+}
+
+.buttonAdm {
+  background-color: mediumseagreen;
+  border: none;
+  cursor: pointer;
+  padding: 14px;
+  width: 100%;
+  border-radius: 6px;
+  
+}
+
+.buttonAdm:hover {
+  opacity: 0.8;
+}

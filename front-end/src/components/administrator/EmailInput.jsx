@@ -13,6 +13,7 @@ export default function EmailInput() {
           placeholder="Enter e-mail"
           type="email"
           value={ email }
+          className="inputAdm"
           required
         />
       </label>

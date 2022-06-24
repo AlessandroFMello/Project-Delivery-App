@@ -79,6 +79,7 @@ export default function AdminPage() {
               data-testid="admin_manage__button-register"
               type="submit"
               disabled={ validateRegister() }
+              className="buttonAdm"
             >
               Cadastrar
             </button>
