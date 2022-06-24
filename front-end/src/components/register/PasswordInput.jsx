@@ -14,7 +14,7 @@ export default function PasswordInput() {
           placeholder="Enter password"
           value={ password }
           required
-          className='inputEmail' 
+          className="inputEmail"
         />
       </label>
     </div>

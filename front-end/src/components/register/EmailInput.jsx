@@ -14,7 +14,7 @@ export default function EmailInput() {
           type="email"
           value={ email }
           required
-          className='inputEmail'  
+          className="inputEmail"
         />
       </label>
     </div>

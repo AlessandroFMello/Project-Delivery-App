@@ -191,40 +191,40 @@ export default function CheckoutPage() {
         </div>
         <section className="detail">
           <section>
-      <div> Pessoa Vendedora Responsável:</div>
-        <select
-          data-testid="customer_checkout__select-seller"
-          onChange={ (e) => setSellerId(e.target.value) }
-          value={ sellerId }
-          className="sellerSelect"
-        >
-          {sellers.map(({ id, name }) => (
-            <option key={ id } value={ id }>{name}</option>
-          ))}
-        </select>
+            <div> Pessoa Vendedora Responsável:</div>
+            <select
+              data-testid="customer_checkout__select-seller"
+              onChange={ (e) => setSellerId(e.target.value) }
+              value={ sellerId }
+              className="sellerSelect"
+            >
+              {sellers.map(({ id, name }) => (
+                <option key={ id } value={ id }>{name}</option>
+              ))}
+            </select>
           </section>
-        <section className="detailText">
-        <div>
-        Endereço
-        </div>
-        <input
-          data-testid="customer_checkout__input-address"
-          type="text"
-          onChange={ (event) => handleDisableText(event) }
-          value={ deliveryAddress }
-          />
-        </section>
-        <section className="detailNumber">
-        <div> Número </div>
-        <input
-          data-testid="customer_checkout__input-addressNumber"
-          type="number"
-          onChange={ (event) => handleDisableNumber(event) }
-          min="1"
-          value={ deliveryNumber }
-          className="detailNumberInput"
-        />
-        </section>
+          <section className="detailText">
+            <div>
+              Endereço
+            </div>
+            <input
+              data-testid="customer_checkout__input-address"
+              type="text"
+              onChange={ (event) => handleDisableText(event) }
+              value={ deliveryAddress }
+            />
+          </section>
+          <section className="detailNumber">
+            <div> Número </div>
+            <input
+              data-testid="customer_checkout__input-addressNumber"
+              type="number"
+              onChange={ (event) => handleDisableNumber(event) }
+              min="1"
+              value={ deliveryNumber }
+              className="detailNumberInput"
+            />
+          </section>
         </section>
         <button
           data-testid="customer_checkout__button-submit-order"

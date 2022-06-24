@@ -48,7 +48,7 @@ export default function ProductCard({ product }) {
   }
 
   return (
-    <div className='card'>
+    <div className="card">
       <p
         data-testid={ `customer_products__element-card-title-${product.id}` }
       >
@@ -67,30 +67,30 @@ export default function ProductCard({ product }) {
         height="100px"
       />
       <section>
-      <button
-        onClick={ () => handleDecrement() }
-        data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-        type="button"
-        className="buttonNegative"
-      >
-        -
-      </button>
-      <input
-        type="text"
-        pattern="/^\d+$/"
-        onChange={ (event) => handleChange(event) }
-        value={ quantity }
-        data-testid={ `customer_products__input-card-quantity--${product.id}` }
-        className="quantity"
-      />
-      <button
-        onClick={ () => handleIncrement() }
-        data-testid={ `customer_products__button-card-add-item--${product.id}` }
-        type="button"
-        className="buttonPositive"
-      >
-        +
-      </button>
+        <button
+          onClick={ () => handleDecrement() }
+          data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+          type="button"
+          className="buttonNegative"
+        >
+          -
+        </button>
+        <input
+          type="text"
+          pattern="/^\d+$/"
+          onChange={ (event) => handleChange(event) }
+          value={ quantity }
+          data-testid={ `customer_products__input-card-quantity--${product.id}` }
+          className="quantity"
+        />
+        <button
+          onClick={ () => handleIncrement() }
+          data-testid={ `customer_products__button-card-add-item--${product.id}` }
+          type="button"
+          className="buttonPositive"
+        >
+          +
+        </button>
       </section>
     </div>
   );
